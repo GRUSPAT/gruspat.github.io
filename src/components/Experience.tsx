@@ -41,15 +41,18 @@ import { useEffect, useRef, useState } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
 
 export const Experience = () => {
-    const controls = useRef();
-    const [hovered, hover] = useState()
-    const texture = useTexture("/textures/Tarnow1000.png")
+    const controls = useRef<any>(null);
+    const [hovered, hover] = useState<any>(null)
+    const texture_bwa = useTexture("/textures/Tarnow1000.png")
 
     const intro = async () => {
-        controls.current.dolly(-20);
-        controls.current.smoothTime = 1.6
-        controls.current.dolly(20, true);
+        if(controls.current !==null){
+            controls.current.dolly(-16);
+            controls.current.smoothTime = 1.4
+            controls.current.dolly(16, true);
+        }
     }
+    
 
     useEffect(() => {
         intro();
@@ -58,22 +61,19 @@ export const Experience = () => {
     return (
         <>
             <CameraControls ref={controls}/>
-            <Text font={"fonts/Medium.otf"} position-x={-1.3} position-y={0} position-z={1} lineHeight={0.8}>
-                PATRYK{"\n"}GRUSZOWSKI
-                <meshBasicMaterial color="black"/>
-            </Text>
-            <group rotation-y={degToRad(-30)} position-y={0} >
-            <RoundedBox args={[2,2,1]} radius={0.28} position-x={5} onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
+            <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
+            <RoundedBox args={[2,2,1]} radius={0.28} position-x={-3} onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
                 <meshBasicMaterial color="#5A8A98"/>
                 <Decal
                 debug
-                position={[0,0,0.8]}
+                position={[0,0,0.4]}
                 rotation={[0,0,0]}
-                scale={[1.75,1.75,1]}
+                scale={[1,1,0.3]}
                 >
-                <meshBasicMaterial map={texture} polygonOffset
-                polygonOffsetFactor={-1}/>
+                <meshBasicMaterial map={texture_bwa}polygonOffset
+                polygonOffsetFactor={-1} />
                 </Decal>
+                
                 <Outlines
             screenspace
             toneMapped={false}
@@ -86,8 +86,8 @@ export const Experience = () => {
             thickness={8}
           />
             </RoundedBox>
-            <RoundedBox args={[2,2,1]} radius={0.28} position-x={8}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
-                <meshBasicMaterial color="green"/>
+            <RoundedBox args={[2,2,1]} radius={0.28} position-x={0}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
+                <meshBasicMaterial color="#1C1B1F"/>
                 <Outlines
             screenspace
             toneMapped={false}
@@ -100,8 +100,8 @@ export const Experience = () => {
             thickness={8}
           />
             </RoundedBox>
-            <RoundedBox args={[2,2,1]} radius={0.32} position-x={11}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
-                <meshBasicMaterial color="red"/>
+            <RoundedBox args={[2,2,1]} radius={0.32} position-x={3}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
+                <meshBasicMaterial color="#10B3D8"/>
                 <Outlines
             screenspace
             toneMapped={false}
