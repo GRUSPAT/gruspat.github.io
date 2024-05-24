@@ -36,7 +36,7 @@
 
             </mesh>  
  */
-import { CameraControls, Decal, Environment, MeshReflectorMaterial,Outlines, RoundedBox, Text, useTexture} from "@react-three/drei";
+import { CameraControls, Decal, Environment,Outlines, RoundedBox, useTexture} from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
 
