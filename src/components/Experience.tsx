@@ -62,30 +62,21 @@ export const Experience = () => {
         <>
             <CameraControls ref={controls}/>
             <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
-            <RoundedBox args={[2,2,1]} radius={0.28} position-x={-3} onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
-                <meshBasicMaterial color="#5A8A98"/>
-                <Decal
+                <mesh>
+            <RoundedBox args={[2,2,1]} radius={0.28} position-x={-3}>
+            <meshBasicMaterial color="#5A8A98" />  
+            <Decal
                 debug
-                position={[0,0,0.4]}
+                position={[0,0,0.02]}
                 rotation={[0,0,0]}
-                scale={[1,1,0.3]}
-                >
-                <meshBasicMaterial map={texture_bwa}polygonOffset
-                polygonOffsetFactor={-1} />
-                </Decal>
-                
-                <Outlines
-            screenspace
-            toneMapped={false}
-            polygonOffset
-            polygonOffsetFactor={100}
-            transparent
-            opacity={hovered * 1}
-            color="black"
-            angle={Math.PI}
-            thickness={8}
-          />
+                scale={[1,1,1]}
+            >
+                  
+            <meshBasicMaterial map={texture_bwa}/>
+            </Decal>   
             </RoundedBox>
+            </mesh>
+           
             <RoundedBox args={[2,2,1]} radius={0.28} position-x={0}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
                 <meshBasicMaterial color="#1C1B1F"/>
                 <Outlines
