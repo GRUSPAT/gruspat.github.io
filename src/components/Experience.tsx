@@ -44,6 +44,8 @@ import * as THREE from "three";
 export const Experience = () => {
     const controls = useRef<any>(null);
     const [hovered, hover] = useState<any>(null)
+    const [hovered_mgmg, hover_mgmg] = useState<any>(null)
+    const [hovered_bwa, hover_bwa] = useState<any>(null)
     const texture_bwa = useTexture("/textures/bwa_background_texture.png")
     const texture_hoodie = useTexture("/textures/hoodie_background_texture.png")
     const texture_mgmg = useTexture("/textures/mgmg_background_texture.png")
@@ -65,11 +67,10 @@ export const Experience = () => {
         <>
             <CameraControls ref={controls}/>
           
-            
             <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
             <Float floatIntensity={1} rotationIntensity={1}>
                 <mesh>
-            <RoundedBox args={[2,2,2]} radius={0.28} position-x={-3}>
+            <RoundedBox args={[2,2,2]} radius={0.28} position-x={-3} onPointerOver={(e) => (e.stopPropagation(), hover_bwa(true))} onPointerOut={() => hover_bwa(false)}>
             <meshBasicMaterial color="#5A8A98" />  
                 <MeshPortalMaterial>
                     <ambientLight intensity={1}/>
@@ -84,6 +85,17 @@ export const Experience = () => {
                     <Svg src={"/vectors/bwa_vector.svg"} position-y={0.65} position-z={0} position-x={-0.5} scale={0.0013} />
                     </Float>
                 </MeshPortalMaterial>
+                <Outlines
+            screenspace
+            toneMapped={false}
+            polygonOffset
+            polygonOffsetFactor={100}
+            transparent
+            opacity={hovered_bwa * 1}
+            color="#FF6B00"
+            angle={Math.PI}
+            thickness={8}
+          />
             </RoundedBox>
             </mesh>
             </Float>
@@ -109,14 +121,14 @@ export const Experience = () => {
             polygonOffsetFactor={100}
             transparent
             opacity={hovered * 1}
-            color="black"
+            color="#FF6B00"
             angle={Math.PI}
             thickness={8}
           />
             </RoundedBox>
             </Float>
             <Float floatIntensity={1} rotationIntensity={1}>
-            <RoundedBox args={[2,2,2]} radius={0.32} position-x={3}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
+            <RoundedBox args={[2,2,2]} radius={0.32} position-x={3}onPointerOver={(f) => (f.stopPropagation(), hover_mgmg(true))} onPointerOut={() => hover_mgmg(false)}>
             <MeshPortalMaterial>
                     <ambientLight intensity={1}/>
                     <Environment preset="sunset"/>
@@ -136,8 +148,8 @@ export const Experience = () => {
             polygonOffset
             polygonOffsetFactor={100}
             transparent
-            opacity={hovered * 1}
-            color="black"
+            opacity={hovered_mgmg * 1}
+            color="#FF6B00"
             angle={Math.PI}
             thickness={8}
           />
