@@ -1,6 +1,6 @@
 @font-face {
     font-family: Medium;
-    src: url(".../public/fonts/Medium.otf");
+    src: url("/public/fonts/Medium.otf");
 }
 nav{
     position: absolute;

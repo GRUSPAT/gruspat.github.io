@@ -49,11 +49,11 @@ export const Experience = () => {
     const texture_mgmg = useTexture("/textures/mgmg_background_texture.png")
 
     const intro = async () => {
-        if(controls.current !==null){
+       /* if(controls.current !==null){
             controls.current.dolly(-16);
             controls.current.smoothTime = 1.4
             controls.current.dolly(16, true);
-        }
+        }*/
     }
     
 
