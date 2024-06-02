@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import './App.css'
 import { Experience } from "./components/Experience";
+import { Overlay } from "./components/Overlay";
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
         <fog attach="fog" args={["#ececec",5,30]}/>
         <Experience/>
       </Canvas>
+      <Overlay/>
     </div>
     
   )

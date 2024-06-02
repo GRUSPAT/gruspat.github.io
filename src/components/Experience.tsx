@@ -2,8 +2,8 @@
  * 
  * To do:
  * 
- * 1. Formularz konatktowy
- * 2. Portale do apek
+ * 1. Contact form
+ * 2. App portals
  * 3. Moving bars with *OPEN TO WORK*
  * 4. Short About me info
  * 5. Links to socials
@@ -36,14 +36,17 @@
 
             </mesh>  
  */
-import { CameraControls, Decal, Environment,Outlines, RoundedBox, useTexture} from "@react-three/drei";
+import { CameraControls, Environment,Float,MeshPortalMaterial,Outlines, RoundedBox, useTexture} from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
+import * as THREE from "three";
 
 export const Experience = () => {
     const controls = useRef<any>(null);
     const [hovered, hover] = useState<any>(null)
-    const texture_bwa = useTexture("/textures/Tarnow1000.png")
+    const texture_bwa = useTexture("/textures/bwa_background_texture.png")
+    const texture_hoodie = useTexture("/textures/hoodie_background_texture.png")
+    const texture_mgmg = useTexture("/textures/mgmg_background_texture.png")
 
     const intro = async () => {
         if(controls.current !==null){
@@ -61,24 +64,34 @@ export const Experience = () => {
     return (
         <>
             <CameraControls ref={controls}/>
+            
             <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
                 <mesh>
-            <RoundedBox args={[2,2,1]} radius={0.28} position-x={-3}>
+            <RoundedBox args={[2,2,2]} radius={0.28} position-x={-3}>
             <meshBasicMaterial color="#5A8A98" />  
-            <Decal
-                debug
-                position={[0,0,0.02]}
-                rotation={[0,0,0]}
-                scale={[1,1,1]}
-            >
-                  
-            <meshBasicMaterial map={texture_bwa}/>
-            </Decal>   
+                <MeshPortalMaterial>
+                    <ambientLight intensity={1}/>
+                    <Environment preset="sunset"/>
+                   
+                    <mesh rotation-y={degToRad(111)}>
+                        <sphereGeometry args={[2.9,64,64]}/>
+                        <meshStandardMaterial map={texture_bwa} side={THREE.BackSide}/>
+                    </mesh>
+                </MeshPortalMaterial>
             </RoundedBox>
+            
             </mesh>
            
-            <RoundedBox args={[2,2,1]} radius={0.28} position-x={0}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
-                <meshBasicMaterial color="#1C1B1F"/>
+            <RoundedBox args={[2,2,2]} radius={0.28} position-x={0}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
+            <MeshPortalMaterial>
+                    <ambientLight intensity={1}/>
+                    <Environment preset="sunset"/>
+                   
+                    <mesh rotation-y={degToRad(90)}>
+                        <sphereGeometry args={[2.5,64,64]}/>
+                        <meshStandardMaterial map={texture_hoodie} side={THREE.BackSide}/>
+                    </mesh>
+                </MeshPortalMaterial>
                 <Outlines
             screenspace
             toneMapped={false}
@@ -91,8 +104,16 @@ export const Experience = () => {
             thickness={8}
           />
             </RoundedBox>
-            <RoundedBox args={[2,2,1]} radius={0.32} position-x={3}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
-                <meshBasicMaterial color="#10B3D8"/>
+            <RoundedBox args={[2,2,2]} radius={0.32} position-x={3}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
+            <MeshPortalMaterial>
+                    <ambientLight intensity={1}/>
+                    <Environment preset="sunset"/>
+                   
+                    <mesh rotation-y={degToRad(65)}>
+                        <sphereGeometry args={[2.5,64,64]}/>
+                        <meshStandardMaterial map={texture_mgmg} side={THREE.BackSide}/>
+                    </mesh>
+                </MeshPortalMaterial>
                 <Outlines
             screenspace
             toneMapped={false}
@@ -106,6 +127,7 @@ export const Experience = () => {
           />
             </RoundedBox>
             </group>
+            
           
             <Environment preset="sunset"/>
         </>
