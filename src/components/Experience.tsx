@@ -36,7 +36,7 @@
 
             </mesh>  
  */
-import { CameraControls, Environment,MeshPortalMaterial,Outlines, RoundedBox, useTexture} from "@react-three/drei";
+import { CameraControls,Float, Environment,MeshPortalMaterial,Outlines, RoundedBox, useTexture, Svg} from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as THREE from "three";
@@ -49,11 +49,11 @@ export const Experience = () => {
     const texture_mgmg = useTexture("/textures/mgmg_background_texture.png")
 
     const intro = async () => {
-       /* if(controls.current !==null){
+        if(controls.current !==null){
             controls.current.dolly(-16);
             controls.current.smoothTime = 1.4
             controls.current.dolly(16, true);
-        }*/
+        }
     }
     
 
@@ -64,8 +64,10 @@ export const Experience = () => {
     return (
         <>
             <CameraControls ref={controls}/>
+          
             
             <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
+            <Float floatIntensity={1} rotationIntensity={1}>
                 <mesh>
             <RoundedBox args={[2,2,2]} radius={0.28} position-x={-3}>
             <meshBasicMaterial color="#5A8A98" />  
@@ -77,11 +79,15 @@ export const Experience = () => {
                         <sphereGeometry args={[2.9,64,64]}/>
                         <meshStandardMaterial map={texture_bwa} side={THREE.BackSide}/>
                     </mesh>
+                    <Float>
+                   
+                    <Svg src={"/vectors/bwa_vector.svg"} position-y={0.65} position-z={0} position-x={-0.5} scale={0.0013} />
+                    </Float>
                 </MeshPortalMaterial>
             </RoundedBox>
-            
             </mesh>
-           
+            </Float>
+            <Float floatIntensity={1} rotationIntensity={1}>
             <RoundedBox args={[2,2,2]} radius={0.28} position-x={0}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
             <MeshPortalMaterial>
                     <ambientLight intensity={1}/>
@@ -91,6 +97,10 @@ export const Experience = () => {
                         <sphereGeometry args={[2.5,64,64]}/>
                         <meshStandardMaterial map={texture_hoodie} side={THREE.BackSide}/>
                     </mesh>
+                    <Float>
+                   
+                    <Svg src={"/vectors/hoodie_vector.svg"} position-y={0.65} position-z={0} position-x={-0.5} scale={0.0022} />
+                    </Float>
                 </MeshPortalMaterial>
                 <Outlines
             screenspace
@@ -104,6 +114,8 @@ export const Experience = () => {
             thickness={8}
           />
             </RoundedBox>
+            </Float>
+            <Float floatIntensity={1} rotationIntensity={1}>
             <RoundedBox args={[2,2,2]} radius={0.32} position-x={3}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
             <MeshPortalMaterial>
                     <ambientLight intensity={1}/>
@@ -113,6 +125,10 @@ export const Experience = () => {
                         <sphereGeometry args={[2.5,64,64]}/>
                         <meshStandardMaterial map={texture_mgmg} side={THREE.BackSide}/>
                     </mesh>
+                    <Float>
+                   
+                    <Svg src={"/vectors/mgmg_vector.svg"} position-y={0.65} position-z={0} position-x={-0.5} scale={0.016} />
+                    </Float>
                 </MeshPortalMaterial>
                 <Outlines
             screenspace
@@ -126,6 +142,7 @@ export const Experience = () => {
             thickness={8}
           />
             </RoundedBox>
+            </Float>
             </group>
             
           
