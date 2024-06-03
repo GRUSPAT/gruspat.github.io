@@ -25,8 +25,7 @@ import {
     Outlines, 
     RoundedBox, 
     useTexture, 
-    useCursor, 
-    Svg
+    useCursor
 } from "@react-three/drei";
 //import { useFrame, useThree } from "@react-three/fiber";
 //import { easing } from "maath"
