@@ -29,7 +29,8 @@ import {
 } from "@react-three/drei";
 //import { useFrame, useThree } from "@react-three/fiber";
 //import { easing } from "maath"
-import { useEffect, useRef, useState } from "react";
+import { useSpring, animated, config } from "@react-spring/three";
+import React, { useEffect, useRef, useState } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as THREE from "three";
 import { Hoodie } from "./Hoodie";
@@ -43,6 +44,25 @@ export const Experience = () => {
     const [hovered_mgmg, hover_mgmg] = useState<any>(null)
     const [hovered_bwa, hover_bwa] = useState<any>(null)
    // const [active, setActive] = useState<any>(null);
+
+   const myMesh1 = React.useRef(null);
+   const myMesh2 = React.useRef(null);
+   const myMesh3 = React.useRef(null);
+  const [activebwa, setActiveBwa] = useState(false);
+  const [activehoodie, setActiveHoodie] = useState(false);
+  const [activemgmg, setActiveMgmg] = useState(false);
+  const { scale } = useSpring({
+    scale: activebwa ? 1.5 : 1,
+    config: config.wobbly
+  });
+  const scale2 = useSpring({
+    scale: activehoodie ? 1.5 : 1,
+    config: config.wobbly
+  });
+  const scale3 = useSpring({
+    scale: activemgmg ? 1.5 : 1,
+    config: config.wobbly
+  });
 
     useCursor(hovered);
    // const controlsRef = useRef();
@@ -88,7 +108,10 @@ export const Experience = () => {
             <CameraControls ref={controls}/>
             <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
             <Float floatIntensity={1} rotationIntensity={1}>
-                <mesh>
+                <animated.mesh 
+                  scale={scale}
+                  onClick={() => setActiveBwa(!activebwa)}
+                  ref={myMesh1}>
             <RoundedBox args={[2,2,0.5]} radius={0.28} position-x={-3} onPointerOver={(e) => (e.stopPropagation(), hover_bwa(true))} onPointerOut={() => hover_bwa(false)}>
             <meshBasicMaterial color="#5A8A98" />  
                 <MeshPortalMaterial>
@@ -116,9 +139,13 @@ export const Experience = () => {
             thickness={8}
           />
             </RoundedBox>
-            </mesh>
+            </animated.mesh>
             </Float>
             <Float floatIntensity={1} rotationIntensity={1}>
+            <animated.mesh 
+                  scale={scale2.scale}
+                  onClick={() => setActiveHoodie(!activehoodie)}
+                  ref={myMesh2}>
             <RoundedBox args={[2,2,0.5]} radius={0.28} position-x={0}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
             <MeshPortalMaterial blend={0}>
                     <ambientLight intensity={1}/>
@@ -144,8 +171,13 @@ export const Experience = () => {
             thickness={8}
           />
             </RoundedBox>
+            </animated.mesh>
             </Float>
             <Float floatIntensity={1} rotationIntensity={1}>
+            <animated.mesh 
+                  scale={scale3.scale}
+                  onClick={() => setActiveMgmg(!activemgmg)}
+                  ref={myMesh3}>
             <RoundedBox args={[2,2,0.5]} radius={0.32} position-x={3}onPointerOver={(f) => (f.stopPropagation(), hover_mgmg(true))} onPointerOut={() => hover_mgmg(false)}>
             <MeshPortalMaterial>
                     <ambientLight intensity={1}/>
@@ -172,6 +204,7 @@ export const Experience = () => {
             thickness={8}
           />
             </RoundedBox>
+            </animated.mesh>
             </Float>
             </group>
             
