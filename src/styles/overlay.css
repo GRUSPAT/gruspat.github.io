@@ -22,3 +22,29 @@ a:hover{
     color: #FF6B00;
 }
 
+.marquee-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-size: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.marquee {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 60s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(300%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
