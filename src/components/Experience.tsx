@@ -36,6 +36,8 @@ import * as THREE from "three";
 import { Hoodie } from "./Hoodie";
 import {Mgmg} from "./Mgmg"
 import {Bwa} from "./Bwa"
+import { EffectComposer, Noise, Selection, Outline, Select } from "@react-three/postprocessing";
+import { BlendFunction } from "postprocessing";
 
 
 export const Experience = () => {
@@ -105,14 +107,19 @@ export const Experience = () => {
 
     return (
         <>
+        
+        
+        
             <CameraControls ref={controls}/>
             <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
+            
             <Float floatIntensity={1} rotationIntensity={1}>
                 <animated.mesh 
                   scale={scale}
                   onClick={() => setActiveBwa(!activebwa)}
                   ref={myMesh1}>
-            <RoundedBox args={[2,2,0.5]} radius={0.28} position-x={-3} onPointerOver={(e) => (e.stopPropagation(), hover_bwa(true))} onPointerOut={() => hover_bwa(false)}>
+  
+  <RoundedBox args={[2,2,0.5]} radius={0.28} position-x={-3} onPointerOver={(e) => (e.stopPropagation(), hover_bwa(true))} onPointerOut={() => hover_bwa(false)}>
             <meshBasicMaterial color="#5A8A98" />  
                 <MeshPortalMaterial>
                     <ambientLight intensity={1}/>
@@ -141,6 +148,8 @@ export const Experience = () => {
             </RoundedBox>
             </animated.mesh>
             </Float>
+      
+            
             <Float floatIntensity={1} rotationIntensity={1}>
             <animated.mesh 
                   scale={scale2.scale}
@@ -154,7 +163,11 @@ export const Experience = () => {
                     <mesh rotation-y={degToRad(90)}>
                         <sphereGeometry args={[2.5,64,64]}/>
                         <meshStandardMaterial map={texture_hoodie} side={THREE.BackSide}/>
+                        
                     </mesh>
+                    <EffectComposer>
+          <Noise premultiply blendFunction={BlendFunction.ADD} />
+        </EffectComposer>
                     <Float rotationIntensity={5}>
                     <Hoodie scale={0.3 } position-y={-0.5} position-z={-0.5}/>
                     </Float>
@@ -191,7 +204,9 @@ export const Experience = () => {
                     <Float rotationIntensity={5}>
                     <Mgmg position-y={-0.8} scale={0.25} position-z={0.30} position-x={-0.50}/>
                     </Float>
+                    
                 </MeshPortalMaterial>
+                
                 <Outlines
             screenspace
             toneMapped={false}
@@ -203,6 +218,7 @@ export const Experience = () => {
             angle={Math.PI}
             thickness={8}
           />
+          
             </RoundedBox>
             </animated.mesh>
             </Float>
