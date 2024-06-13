@@ -36,8 +36,7 @@ import * as THREE from "three";
 import { Hoodie } from "./Hoodie";
 import {Mgmg} from "./Mgmg"
 import {Bwa} from "./Bwa"
-import { EffectComposer, Noise, Selection, Outline, Select } from "@react-three/postprocessing";
-import { BlendFunction } from "postprocessing";
+
 
 
 export const Experience = () => {
@@ -159,15 +158,12 @@ export const Experience = () => {
             <MeshPortalMaterial blend={0}>
                     <ambientLight intensity={1}/>
                     <Environment preset="sunset"/>
-                   
                     <mesh rotation-y={degToRad(90)}>
                         <sphereGeometry args={[2.5,64,64]}/>
                         <meshStandardMaterial map={texture_hoodie} side={THREE.BackSide}/>
                         
                     </mesh>
-                    <EffectComposer>
-          <Noise premultiply blendFunction={BlendFunction.ADD} />
-        </EffectComposer>
+                    
                     <Float rotationIntensity={5}>
                     <Hoodie scale={0.3 } position-y={-0.5} position-z={-0.5}/>
                     </Float>
