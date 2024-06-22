@@ -25,7 +25,8 @@ import {
     Outlines, 
     RoundedBox, 
     useTexture, 
-    useCursor
+    useCursor,
+    Decal
 } from "@react-three/drei";
 //import { useFrame, useThree } from "@react-three/fiber";
 //import { easing } from "maath"
@@ -53,15 +54,15 @@ export const Experience = () => {
   const [activehoodie, setActiveHoodie] = useState(false);
   const [activemgmg, setActiveMgmg] = useState(false);
   const { scale } = useSpring({
-    scale: activebwa ? 1.5 : 1,
+    scale: activebwa ? 1 : 1.8,
     config: config.wobbly
   });
   const scale2 = useSpring({
-    scale: activehoodie ? 1.5 : 1,
+    scale: activehoodie ? 1 : 1.8,
     config: config.wobbly
   });
   const scale3 = useSpring({
-    scale: activemgmg ? 1.5 : 1,
+    scale: activemgmg ? 1 : 1.8,
     config: config.wobbly
   });
 
@@ -72,11 +73,14 @@ export const Experience = () => {
     const texture_bwa = useTexture("/textures/bwa_background_texture.png")
     const texture_hoodie = useTexture("/textures/hoodie_background_texture.png")
     const texture_mgmg = useTexture("/textures/mgmg_background_texture.png")
+    const texture_hoodie_decal = useTexture("/textures/SmartHoodieDecalTexture.png")
 
     const intro = async () => {
         if(controls.current !==null){
             controls.current.dolly(-16);
-            controls.current.smoothTime = 1.4
+            //ścontrols.current.zoom(-0.6);
+            controls.current.smoothTime = 1.6;
+           // controls.current.zoom(1);
             controls.current.dolly(16, true);
         }
     }
@@ -106,9 +110,6 @@ export const Experience = () => {
 
     return (
         <>
-        
-        
-        
             <CameraControls ref={controls}/>
             <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
             
@@ -123,14 +124,12 @@ export const Experience = () => {
                 <MeshPortalMaterial>
                     <ambientLight intensity={1}/>
                     <Environment preset="sunset"/>
-                   
                     <mesh rotation-y={degToRad(111)}>
                         <sphereGeometry args={[2.9,64,64]}/>
                         <meshStandardMaterial map={texture_bwa} side={THREE.BackSide}/>
                     </mesh>
                     
-                   <Float rotationIntensity={5}> <Bwa scale={4.6} position-y={-0.58} position-x={-0.6}/></Float>
-                   
+                    <Float rotationIntensity={5}> <Bwa scale={4.6} position-y={-0.58} position-x={-0.6}/></Float>
                     
                 </MeshPortalMaterial>
                 <Outlines
@@ -154,7 +153,7 @@ export const Experience = () => {
                   scale={scale2.scale}
                   onClick={() => setActiveHoodie(!activehoodie)}
                   ref={myMesh2}>
-            <RoundedBox args={[2,2,0.5]} radius={0.28} position-x={0}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
+            <RoundedBox args={[2,2,1]} radius={0.28} position-x={0}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
             <MeshPortalMaterial blend={0}>
                     <ambientLight intensity={1}/>
                     <Environment preset="sunset"/>
@@ -168,6 +167,22 @@ export const Experience = () => {
                     <Hoodie scale={0.3 } position-y={-0.5} position-z={-0.5}/>
                     </Float>
                 </MeshPortalMaterial>
+                <Decal
+    debug // Makes "bounding box" of the decal visible
+    position={[0, 0, 0.8]} // Position of the decal
+    rotation={[0, 0, 0]} // Rotation of the decal (can be a vector or a degree in radians)
+    scale={1.5} // Scale of the decal
+  >
+     
+    <meshBasicMaterial
+    transparent
+    opacity={(hovered*1)*.5}
+      map={texture_hoodie_decal}
+      polygonOffset
+      polygonOffsetFactor={-1}
+       // The material should take precedence over the original
+    />
+  </Decal>
                 <Outlines
             screenspace
             toneMapped={false}
@@ -220,8 +235,10 @@ export const Experience = () => {
             </Float>
             </group>
             
+            
           
             <Environment preset="sunset"/>
+            
         </>
     );
 };
