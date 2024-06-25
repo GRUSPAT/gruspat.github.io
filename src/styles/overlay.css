@@ -2,6 +2,15 @@
     font-family: Medium;
     src: url("/fonts/Medium.otf");
 }
+.grid-container{
+    display: grid;
+    grid-template-columns: 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px 25px;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "header header header header"
+      "main main . sidebar"
+      "footer footer footer footer";
+}
 nav{
     font-size: large;
     position: absolute;
@@ -21,7 +30,9 @@ a:hover{
 .portfolio{
     color: #FF6B00;
 }
-
+.contact{
+    text-align: right;
+}
 .marquee-container {
     position: fixed;
     bottom: 0;

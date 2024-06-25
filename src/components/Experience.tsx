@@ -26,10 +26,10 @@ import {
     RoundedBox, 
     useTexture, 
     useCursor,
-    Decal
+    Svg
 } from "@react-three/drei";
-//import { useFrame, useThree } from "@react-three/fiber";
-//import { easing } from "maath"
+import { useFrame, useThree } from "@react-three/fiber";
+import { easing } from "maath"
 import { useSpring, animated, config } from "@react-spring/three";
 import React, { useEffect, useRef, useState } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
@@ -41,46 +41,28 @@ import {Bwa} from "./Bwa"
 
 
 export const Experience = () => {
-    const controls = useRef<any>(null);
-    const [hovered, hover] = useState<any>(null)
-    const [hovered_mgmg, hover_mgmg] = useState<any>(null)
-    const [hovered_bwa, hover_bwa] = useState<any>(null)
-   // const [active, setActive] = useState<any>(null);
-
-   const myMesh1 = React.useRef(null);
-   const myMesh2 = React.useRef(null);
-   const myMesh3 = React.useRef(null);
-  const [activebwa, setActiveBwa] = useState(false);
-  const [activehoodie, setActiveHoodie] = useState(false);
-  const [activemgmg, setActiveMgmg] = useState(false);
+  const controls = useRef<any>(null);
+  const [hovered, setHovered] = useState<any>(null)
+  const [active, setActive] = useState<any>(null);
+  const myMesh = React.useRef(null);
+  const title = useRef<any>(null);
   const { scale } = useSpring({
-    scale: activebwa ? 1 : 1.8,
-    config: config.wobbly
-  });
-  const scale2 = useSpring({
-    scale: activehoodie ? 1 : 1.8,
-    config: config.wobbly
-  });
-  const scale3 = useSpring({
-    scale: activemgmg ? 1 : 1.8,
+    scale: active ? 1 : 1.4,
     config: config.wobbly
   });
 
     useCursor(hovered);
    // const controlsRef = useRef();
-    //const scene = useThree((state) => state.scene);
-
-    const texture_bwa = useTexture("/textures/bwa_background_texture.png")
-    const texture_hoodie = useTexture("/textures/hoodie_background_texture.png")
-    const texture_mgmg = useTexture("/textures/mgmg_background_texture.png")
-    const texture_hoodie_decal = useTexture("/textures/SmartHoodieDecalTexture.png")
+    const scene = useThree((state) => state.scene);
 
     const intro = async () => {
         if(controls.current !==null){
             controls.current.dolly(-16);
+            controls.current.rotateTo(degToRad(10),degToRad(40));
             //ścontrols.current.zoom(-0.6);
             controls.current.smoothTime = 1.6;
            // controls.current.zoom(1);
+          controls.current.rotateTo(degToRad(-25),degToRad(95),true);
             controls.current.dolly(16, true);
         }
     }
@@ -90,149 +72,98 @@ export const Experience = () => {
         intro();
     },[])
 
-  /*  useEffect(() => {
+    useEffect(() => {
         if (active) {
           const targetPosition = new THREE.Vector3();
-          scene.getObjectByName(active).getWorldPosition(targetPosition);
+          scene.getObjectByName(active)?.getWorldPosition(targetPosition);
           controls.current.setLookAt(
             0,
             0,
-            5,
+            2,
             targetPosition.x,
             targetPosition.y,
             targetPosition.z,
             true
           );
+         /* var cameraPosition = new THREE.Vector3();
+          controls.current.getWorldPosition(cameraPosition);
+          console.log(cameraPosition);*/
+          
         } else {
           controls.current.setLookAt(0, 0, 10, 0, 0, 0, true);
         }
-      }, [active]);*/
+      }, [active]);
+
 
     return (
         <>
-            <CameraControls ref={controls}/>
+            <CameraControls ref={controls} />
             <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
-            
-            <Float floatIntensity={1} rotationIntensity={1}>
-                <animated.mesh 
-                  scale={scale}
-                  onClick={() => setActiveBwa(!activebwa)}
-                  ref={myMesh1}>
-  
-  <RoundedBox args={[2,2,0.5]} radius={0.28} position-x={-3} onPointerOver={(e) => (e.stopPropagation(), hover_bwa(true))} onPointerOut={() => hover_bwa(false)}>
-            <meshBasicMaterial color="#5A8A98" />  
-                <MeshPortalMaterial>
-                    <ambientLight intensity={1}/>
-                    <Environment preset="sunset"/>
-                    <mesh rotation-y={degToRad(111)}>
-                        <sphereGeometry args={[2.9,64,64]}/>
-                        <meshStandardMaterial map={texture_bwa} side={THREE.BackSide}/>
-                    </mesh>
-                    
-                    <Float rotationIntensity={5}> <Bwa scale={4.6} position-y={-0.58} position-x={-0.6}/></Float>
-                    
-                </MeshPortalMaterial>
-                <Outlines
-            screenspace
-            toneMapped={false}
-            polygonOffset
-            polygonOffsetFactor={100}
-            transparent
-            opacity={hovered_bwa * 1}
-            color="#FF6B00"
-            angle={Math.PI}
-            thickness={8}
-          />
-            </RoundedBox>
-            </animated.mesh>
-            </Float>
-      
-            
-            <Float floatIntensity={1} rotationIntensity={1}>
-            <animated.mesh 
-                  scale={scale2.scale}
-                  onClick={() => setActiveHoodie(!activehoodie)}
-                  ref={myMesh2}>
-            <RoundedBox args={[2,2,1]} radius={0.28} position-x={0}onPointerOver={(e) => (e.stopPropagation(), hover(true))} onPointerOut={() => hover(false)}>
-            <MeshPortalMaterial blend={0}>
-                    <ambientLight intensity={1}/>
-                    <Environment preset="sunset"/>
-                    <mesh rotation-y={degToRad(90)}>
-                        <sphereGeometry args={[2.5,64,64]}/>
-                        <meshStandardMaterial map={texture_hoodie} side={THREE.BackSide}/>
-                        
-                    </mesh>
-                    
-                    <Float rotationIntensity={5}>
-                    <Hoodie scale={0.3 } position-y={-0.5} position-z={-0.5}/>
-                    </Float>
-                </MeshPortalMaterial>
-                <Decal
-    debug // Makes "bounding box" of the decal visible
-    position={[0, 0, 0.8]} // Position of the decal
-    rotation={[0, 0, 0]} // Rotation of the decal (can be a vector or a degree in radians)
-    scale={1.5} // Scale of the decal
-  >
-     
-    <meshBasicMaterial
-    transparent
-    opacity={(hovered*1)*.5}
-      map={texture_hoodie_decal}
-      polygonOffset
-      polygonOffsetFactor={-1}
-       // The material should take precedence over the original
-    />
-  </Decal>
-                <Outlines
-            screenspace
-            toneMapped={false}
-            polygonOffset
-            polygonOffsetFactor={100}
-            transparent
-            opacity={hovered * 1}
-            color="#FF6B00"
-            angle={Math.PI}
-            thickness={8}
-          />
-            </RoundedBox>
-            </animated.mesh>
-            </Float>
-            <Float floatIntensity={1} rotationIntensity={1}>
-            <animated.mesh 
-                  scale={scale3.scale}
-                  onClick={() => setActiveMgmg(!activemgmg)}
-                  ref={myMesh3}>
-            <RoundedBox args={[2,2,0.5]} radius={0.32} position-x={3}onPointerOver={(f) => (f.stopPropagation(), hover_mgmg(true))} onPointerOut={() => hover_mgmg(false)}>
-            <MeshPortalMaterial>
-                    <ambientLight intensity={1}/>
-                    <Environment preset="sunset"/>
-                    <mesh rotation-y={degToRad(65)}>
-                        <sphereGeometry args={[2.5,64,64]}/>
-                        <meshStandardMaterial map={texture_mgmg} side={THREE.BackSide}/>
-                    </mesh>
-              
-                   
-                    <Float rotationIntensity={5}>
-                    <Mgmg position-y={-0.8} scale={0.25} position-z={0.30} position-x={-0.50}/>
-                    </Float>
-                    
-                </MeshPortalMaterial>
-                
-                <Outlines
-            screenspace
-            toneMapped={false}
-            polygonOffset
-            polygonOffsetFactor={100}
-            transparent
-            opacity={hovered_mgmg * 1}
-            color="#FF6B00"
-            angle={Math.PI}
-            thickness={8}
-          />
-          
-            </RoundedBox>
-            </animated.mesh>
-            </Float>
+              <PortfolioStage 
+                name="Tarnow1000"
+                backgroundTexture={"textures/bwa_background_texture.png"}
+                backgroundTextureRotationY={111}
+                mainVector={"vectors/TARNOW_1000.svg"}
+                sideVector={"vectors/award.svg"}
+                position-x={-5}
+                position-y={0}
+                position-z={0}
+                active={active}
+                setActive={setActive}
+                hovered={hovered}
+                setHovered={setHovered}
+                scaleAnimation={scale}
+                myMesh={myMesh}
+                title={title}
+              >
+                <Float rotationIntensity={5}> 
+                  <Bwa scale={4.6} position-y={-0.58} position-x={-0.6}/>
+                </Float>   
+              </PortfolioStage>
+
+              <PortfolioStage 
+                name="SmartHoodie"
+                backgroundTexture={"textures/hoodie_background_texture.png"}
+                backgroundTextureRotationY={0}
+                mainVector={"vectors/SMART_HOODIE.svg"}
+                sideVector={"vectors/award.svg"}
+                position-x={0}
+                position-y={0}
+                position-z={0}
+                active={active}
+                setActive={setActive}
+                hovered={hovered}
+                setHovered={setHovered}
+                scaleAnimation={scale}
+                myMesh={myMesh}
+                title={title}
+              >
+                <Float rotationIntensity={5}>
+                  <Hoodie scale={0.3 } position-y={-0.5} position-z={-0.5}/>
+                </Float>
+              </PortfolioStage>
+
+              <PortfolioStage 
+                name="MGMG"
+                backgroundTexture={"textures/mgmg_background_texture.png"}
+                backgroundTextureRotationY={0}
+                mainVector={"vectors/MGMG.svg"}
+                sideVector={"vectors/award.svg"}
+                position-x={5}
+                position-y={0}
+                position-z={0}
+                active={active}
+                setActive={setActive}
+                hovered={hovered}
+                setHovered={setHovered}
+                scaleAnimation={scale}
+                myMesh={myMesh}
+                title={title}
+              >
+                <Float rotationIntensity={5}>
+                  <Mgmg position-y={-0.8} scale={0.25} position-z={0.30} position-x={-0.50}/>
+                </Float>
+              </PortfolioStage>
             </group>
             
             
@@ -242,87 +173,99 @@ export const Experience = () => {
         </>
     );
 };
-/*
 const PortfolioStage = ({
-    children,
-    texture,
-    name,
-    active,
-    setActive,
-    hovered,
-    setHovered,
-    ...props
-  }) => {
-    const map:any = useTexture(texture);
-    const portalMaterial = useRef<any>(null);
-  
-    useFrame((_state, delta) => {
-      const worldOpen = active === name;
-      easing.damp(portalMaterial.current, "blend", worldOpen ? 1 : 0, 0.2, delta);
-    });
-  
-    return (
-      <group {...props}>
-       <Float floatIntensity={1} rotationIntensity={1}>
-                <mesh>
-            <RoundedBox 
-              args={[2,2,2]} 
-              radius={0.28} 
-              position-x={-3} 
-              onPointerOver={(e) => (e.stopPropagation(), hover_bwa(true))} onPointerOut={() => hover_bwa(false)}>
-            <meshBasicMaterial color="#5A8A98" />  
-                <MeshPortalMaterial>
-                    <ambientLight intensity={1}/>
-                    <Environment preset="sunset"/>
-                   
-                    <mesh rotation-y={degToRad(111)}>
-                        <sphereGeometry args={[2.9,64,64]}/>
-                        <meshStandardMaterial map={map} side={THREE.BackSide}/>
-                    </mesh>
-                    <Float>
-                    <Svg src={"/vectors/bwa_vector.svg"} position-y={0.65} position-z={0} position-x={-0.5} scale={0.0013} />
-                    </Float>
-                </MeshPortalMaterial>
-                <Outlines
-            screenspace
-            toneMapped={false}
-            polygonOffset
-            polygonOffsetFactor={100}
-            transparent
-            opacity={hovered_bwa * 1}
-            color="#FF6B00"
-            angle={Math.PI}
-            thickness={8}
-          />
-            </RoundedBox>
-            </mesh>
-            </Float>
-      </group>
-     */
-
-      
-/*
-      <group {...props}>
-        <RoundedBox
-          name={name}
-          args={[2, 3, 0.1]}
-          onDoubleClick={() => setActive(active === name ? null : name)}
-          onPointerEnter={() => setHovered(name)}
-          onPointerLeave={() => setHovered(null)}
+  children,
+  backgroundTexture,
+  backgroundTextureRotationY,
+  mainVector,
+  sideVector,
+  name,
+  active,
+  setActive,
+  hovered,
+  setHovered,
+  scaleAnimation,
+  myMesh,
+  title,
+  ...props
+}) => {
+  const map:any = useTexture(backgroundTexture);
+  const portalMaterial = useRef<any>(null);
+  useFrame((_state, delta) => {
+    const worldOpen = active === name;
+    easing.damp(portalMaterial.current, "blend", worldOpen ? 1 : 0, 0, delta);
+  });
+  return (
+    <group onPointerEnter={() => setHovered(name)} 
+    onPointerOut={() => setHovered(null)} {...props}>
+      <Float floatIntensity={active === name? 0 : 1} rotationIntensity={active === name? 0 : 1}>
+        <animated.mesh 
+          scale={scaleAnimation}
+          //onDoubleClick={() => setActive(active === name ? null : name)}
+          ref={myMesh}
         >
-          <MeshPortalMaterial ref={portalMaterial} side={THREE.DoubleSide}>
-            <ambientLight intensity={1} />
-            <Environment preset="sunset" />
-            {children}
-            <mesh>
-              <sphereGeometry args={[5, 64, 64]} />
-              <meshStandardMaterial map={map} side={THREE.BackSide} />
-            </mesh>
-          </MeshPortalMaterial>
-        </RoundedBox>
-      </group>*/
-
-      /*
-    );
-  };
-*/
+          <RoundedBox 
+            name={name}
+            args={[2,2,0.5]} 
+            radius={0.28} 
+            position-x={0}
+            onClick={() => setActive(active === name ? null : name)}
+            
+          >
+            <MeshPortalMaterial ref={portalMaterial}>
+              <ambientLight intensity={1}/>
+              <Environment preset="sunset"/>
+              <mesh rotation-y={degToRad(backgroundTextureRotationY)}>
+                <sphereGeometry args={[16,64,64]}/>
+                <meshStandardMaterial map={map} side={THREE.BackSide}/>
+              </mesh>
+              <Svg 
+                  ref={title}
+                  src={mainVector} 
+                  scale={0.001} 
+                  position-z={6.32} 
+                  position-x={-0.8} 
+                  position-y={0.65} 
+                />
+              {children}
+            </MeshPortalMaterial>
+            <group>  
+              <RoundedBox 
+                args={[2.5,2.5,0.6]} 
+                radius={0.2}
+                position-z={0}
+              >
+                <meshPhongMaterial color="#FFFFFF" transparent opacity={0.4} visible={hovered === name?true:false}/>
+                <Svg 
+                  src={mainVector} 
+                  scale={0.001} 
+                  position-z={0.32} 
+                  position-x={-0.6} 
+                  position-y={0.25} 
+                />
+                <Svg 
+                  src={sideVector} 
+                  scale={0.0023} 
+                  position-z={0.31} 
+                  position-x={-0.85} 
+                  position-y={-0.5} 
+                />
+              </RoundedBox>
+            </group>
+            <Outlines
+              screenspace
+              toneMapped={false}
+              polygonOffset
+              polygonOffsetFactor={100}
+              transparent
+              opacity={0}
+              color="#FF6B00"
+              angle={Math.PI}
+              thickness={8}
+            />
+          </RoundedBox>
+        </animated.mesh>
+      </Float>
+    </group>
+  );
+}
