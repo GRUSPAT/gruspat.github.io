@@ -1,22 +1,3 @@
-/** 
- * 
- * To do:
- * 
- * 1. Contact form
- * 2. App portals
- * 3. Moving bars with *OPEN TO WORK*
- * 4. Short About me info
- * 5. Links to socials
- * 
- * Functions:
- * 1. Highlights
- * 2. Moving camera
- * 3. Portals
- * 4. Spheres with different colors
- * 
- * Maybes?:
- * 1. Title screen with falling apps icons
- */
 import { 
     CameraControls,
     Float, 
@@ -34,11 +15,10 @@ import { useSpring, animated, config } from "@react-spring/three";
 import React, { useEffect, useRef, useState } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as THREE from "three";
-import { Hoodie } from "./Hoodie";
-import {Mgmg} from "./Mgmg"
-import {Bwa} from "./Bwa"
 
-
+import {Bwa} from "./gltfjsx/Bwa"
+import { Hoodie } from "./gltfjsx/Hoodie";
+import {Mgmg} from "./gltfjsx/Mgmg"
 
 export const Experience = () => {
   const controls = useRef<any>(null);
@@ -52,7 +32,6 @@ export const Experience = () => {
   });
 
     useCursor(hovered);
-   // const controlsRef = useRef();
     const scene = useThree((state) => state.scene);
 
     const intro = async () => {
@@ -66,8 +45,7 @@ export const Experience = () => {
             controls.current.dolly(16, true);
         }
     }
-    
-
+  
     useEffect(() => {
         intro();
     },[])
@@ -85,15 +63,10 @@ export const Experience = () => {
             targetPosition.z,
             true
           );
-         /* var cameraPosition = new THREE.Vector3();
-          controls.current.getWorldPosition(cameraPosition);
-          console.log(cameraPosition);*/
-          
         } else {
           controls.current.setLookAt(0, 0, 10, 0, 0, 0, true);
         }
       }, [active]);
-
 
     return (
         <>
@@ -165,11 +138,7 @@ export const Experience = () => {
                 </Float>
               </PortfolioStage>
             </group>
-            
-            
-          
             <Environment preset="sunset"/>
-            
         </>
     );
 };

@@ -1,11 +1,12 @@
 import { Canvas} from "@react-three/fiber";
 import { Preload } from "@react-three/drei";
-import './App.css'
-import { Experience } from "./components/Experience";
-import { Overlay } from "./components/Overlay";
 import { Suspense} from "react";
 import { EffectComposer, Noise, Outline,Vignette, Bloom, DepthOfField } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
+
+import './styles/App.css'
+import { Experience } from "./components/Experience";
+import { Overlay } from "./components/Overlay";
 
 function App() {
 
