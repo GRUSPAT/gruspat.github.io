@@ -1,13 +1,13 @@
 import { 
-    CameraControls,
-    Float, 
-    Environment,
-    MeshPortalMaterial,
-    Outlines, 
-    RoundedBox, 
-    useTexture, 
-    useCursor,
-    Svg
+  CameraControls,
+  Float, 
+  Environment,
+  MeshPortalMaterial,
+  Outlines, 
+  RoundedBox, 
+  useTexture, 
+  useCursor,
+  Svg
 } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { easing } from "maath"

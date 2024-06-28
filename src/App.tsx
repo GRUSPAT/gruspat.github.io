@@ -1,17 +1,25 @@
 import { Canvas} from "@react-three/fiber";
 import { Preload } from "@react-three/drei";
 import { Suspense} from "react";
-import { EffectComposer, Noise, Outline,Vignette, Bloom, DepthOfField } from "@react-three/postprocessing";
+import { 
+  EffectComposer, 
+  Noise, 
+  Outline,
+  Vignette, 
+  Bloom, 
+  DepthOfField 
+} from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 
 import './styles/App.css'
 import { Experience } from "./components/Experience";
+import { Loading } from "./components/Loading";
 import { Overlay } from "./components/Overlay";
 
 function App() {
 
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<Loading/>}>
       
       <div className="App">
       <Canvas shadows camera={{position: [0,0,8], fov: 42}}>
@@ -19,7 +27,6 @@ function App() {
         <color attach="background" args={["#ececec"]}/>
         
         <Experience/>
-        
         
         <EffectComposer autoClear={false}>
           <Outline blur edgeStrength={100} />
@@ -29,7 +36,7 @@ function App() {
           <Noise premultiply blendFunction={BlendFunction.ADD} />
         </EffectComposer>
         
-        <Preload all />
+        <Preload all />  
       </Canvas>
       <Overlay/>
     </div>
