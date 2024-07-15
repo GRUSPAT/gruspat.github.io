@@ -7,7 +7,7 @@ import { useThree } from "@react-three/fiber";
 
 import { degToRad } from "maath/misc"
 
-import React, { useEffect, useMemo, useRef} from "react";
+import { useEffect, useMemo, useRef} from "react";
 import * as THREE from "three";
 import {atom, useAtom} from "jotai";
 
@@ -26,8 +26,6 @@ export const Experience = () => {
   const [hovered, setHovered] = useAtom(hoverAtom);
   const [active, setActive] = useAtom(activeAtom);
   //const [previous, setPrevious] = useAtom(previousAtom);
-  const myMesh = React.useRef(null);
-  const title = useRef<any>(null);
   
 
   const curve = useMemo(()=>{
@@ -158,13 +156,11 @@ export const Experience = () => {
                 backgroundTexture={"textures/bwa_background_texture.png"}
                 backgroundTextureRotationY={111}
                 positionX={-3.3}
-                position-y={0}
-                position-z={0}
-                myMesh={myMesh}
-                title={title}
+               // position-y={0}
+                //position-z={0}
               >
                 
-                  <Bwa name="Tarnow1000Children" scale={4.6} position-y={-0.58} position-x={-0.6}/>
+                  <Bwa scale={4.6} position-y={-0.58} position-x={-0.6}/>
                 
               </Tile>
               <Tile 
@@ -172,34 +168,27 @@ export const Experience = () => {
                 backgroundTexture={"textures/hoodie_background_texture.png"}
                 backgroundTextureRotationY={0}
                 positionX={0}
-                position-y={0}
-                position-z={0}
-                myMesh={myMesh}
-                title={title}
+               // position-y={0}
+               // position-z={0}
               >
                 
                   <Hoodie scale={0.3 } position-y={-0.5} position-z={-0.5}/>
                 
               </Tile>
-
               <Tile 
                 name="MGMG"
                 backgroundTexture={"textures/mgmg_background_texture.png"}
                 backgroundTextureRotationY={0}
                 positionX={3.3}
-                position-y={0}
-                position-z={0}
-                myMesh={myMesh}
-                title={title}
+              //  position-y={0}
+              //  position-z={0}
               >
                 
                   <Mgmg position-y={-0.8} scale={0.25} position-z={0.30} position-x={-0.50}/>
                 
               </Tile>
             </group>
-          
             <Environment preset="sunset"/>
-           
         </>
     );
 };

@@ -23,8 +23,6 @@ export const Tile = ({
     backgroundTexture,
     backgroundTextureRotationY,
     name,
-    myMesh,
-    title,
     positionX,
     ...props
 }) => {
@@ -86,7 +84,6 @@ export const Tile = ({
             onDoubleClick={() => setActive(active === name ? null : name)}
            // position-x={positionTileX}
             rotation-y={rotationFull}
-            ref={myMesh}
           >
             <RoundedBox 
               name={name}
