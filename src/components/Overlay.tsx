@@ -3,6 +3,13 @@ import '../styles/overlay.css'
 export const Overlay = () => {
     return(
         <>
+        <div className="marquee-container marquee-container-top">
+        <div className="marquee">
+            <span>
+                *This site is currently under development and its core feature aren't available yet. Please consider visiting this site in future.*
+            </span>
+        </div>
+        </div>
         <nav className="overlay">
             <p>PATRYK 
                 <a className="portfolio"href="">PORTFOLIO&nbsp;</a>
@@ -14,9 +21,11 @@ export const Overlay = () => {
         </nav>
         <div className="marquee-container">
         <div className="marquee">
-            <span>*This site is currently under development and its core feature aren't available yet. Please consider visiting this site in future.*</span>
+            <span>
+            *This site is currently under development and its core feature aren't available yet. Please consider visiting this site in future.*
+            </span>
         </div>
-    </div>
+        </div>
         </>
     )
 }

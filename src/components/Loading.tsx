@@ -4,7 +4,7 @@ export const Loading = () => {
     return(
         <>
         <div className="loading">
-            WCZYTYWANIE
+            LOADING
         </div>
         </>
     )
