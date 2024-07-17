@@ -14,7 +14,7 @@ import * as THREE from "three";
 import { easing } from "maath"
 import { degToRad } from "maath/misc"
 import { useAtom} from "jotai";
-import { activeAtom, hoverAtom } from "./Experience";
+import { activeAtom, hoverAtom, startAtom } from "./Experience";
 
 
 
@@ -33,6 +33,8 @@ export const Tile = ({
     const [isItemHover, setIsItemHover] = useState(false);
     const[hovered,setHovered] = useAtom(hoverAtom);
     const [active,setActive] = useAtom(activeAtom);
+    const [start, setStart] = useAtom(startAtom);
+    const TitleWithNewLines = name.replaceAll(" ", "\n");
   
     useFrame((_state, delta) => {
       //const worldOpen = active === name;
@@ -46,14 +48,17 @@ export const Tile = ({
     });
     const {rotationIntensity} = useSpring({
       rotationIntensity: isWorldOpen || isItemHover ? 5 : 0.25,
-      config: {
-        mass: 600,
-      }
-    });
-  /*  const {positionTileX} = useSpring({
-      positionTileX: active? 0:0,// positionX*3.5: positionX,
       config: config.gentle
-    });*/
+    });
+    const {positionTileX} = useSpring({
+      positionTileX: start? positionX*4: positionX,
+      config: active? config.slow: config.wobbly
+    });
+    const {scaleTile} = useSpring({
+      scaleTile: start? 1.3:1,
+      config: config.gentle
+    });
+    
     const {positionHoverZ} = useSpring({
       positionHoverZ: hovered!==name? -2.1: 0.01,
       config: config.gentle
@@ -63,7 +68,7 @@ export const Tile = ({
       config: config.gentle
     });
     const {rotationFull} = useSpring({
-      rotationFull: active===name? 4.4:0,
+      rotationFull: active===name? 3:0,
       config: config.wobbly
     });
     const { scale } = useSpring({
@@ -82,8 +87,9 @@ export const Tile = ({
           <animated.mesh 
             
             onDoubleClick={() => setActive(active === name ? null : name)}
-           // position-x={positionTileX}
-            rotation-y={rotationFull}
+            position-x={positionTileX}
+            //rotation-y={rotationFull}
+            scale={scaleTile}
           >
             <RoundedBox 
               name={name}
@@ -100,8 +106,12 @@ export const Tile = ({
                   <sphereGeometry args={[16,64,64]}/>
                   <meshStandardMaterial map={map} side={THREE.BackSide}/>
                 </mesh>
-                  
-                <AnimatedFloat rotationIntensity={rotationIntensity} ref={childrenFloat}>
+                <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="white"position-z={0.32} 
+                    position-x={0} 
+                    position-y={0.5} scale={0.2} >{TitleWithNewLines}
+                </Text>
+                
+                <AnimatedFloat floatIntensity={0} rotationIntensity={rotationIntensity} ref={childrenFloat}>
                 {children}
                 </AnimatedFloat>  
               </MeshPortalMaterial>

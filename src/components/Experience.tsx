@@ -15,7 +15,7 @@ import {Bwa} from "./gltfjsx/Bwa"
 import { Hoodie } from "./gltfjsx/Hoodie";
 import {Mgmg} from "./gltfjsx/Mgmg"
 
-
+export const startAtom = atom(true);
 export const activeAtom = atom("");
 export const hoverAtom = atom("");
 export const previousAtom = atom<any>(null);
@@ -23,6 +23,7 @@ import {Tile} from "./Tile"
 
 export const Experience = () => {
   const controls = useRef<any>(null);
+  const [start, setStart] = useAtom(startAtom);
   const [hovered, setHovered] = useAtom(hoverAtom);
   const [active, setActive] = useAtom(activeAtom);
   //const [previous, setPrevious] = useAtom(previousAtom);
@@ -51,15 +52,17 @@ export const Experience = () => {
         if(controls.current !==null){
           //controls.current.setTarget(0,90,90);
           //controls.current.smoothTime = 1.6;
+            //if (start){setStart(false);}
           
-            controls.current.dolly(-64);
-            controls.current.rotateTo(degToRad(10),degToRad(40));
+            //controls.current.dolly(-16);
+
+            //controls.current.rotateTo(degToRad(10),degToRad(40));
             //ścontrols.current.zoom(-0.6);
-            controls.current.smoothTime = 1.6;
+            //controls.current.smoothTime = 1.6;
            // controls.current.zoom(1);
-          controls.current.rotateTo(degToRad(-25),degToRad(95),true);
+         // controls.current.rotateTo(degToRad(-25),degToRad(95),true);
           
-            controls.current.dolly(64, true);
+          //  controls.current.dolly(16, true);
           
         }
     }
@@ -102,6 +105,7 @@ export const Experience = () => {
       setHovered("");
       setActive("");
         intro();
+        setStart(false);
     },[])
 
     useEffect(() => {
@@ -109,20 +113,35 @@ export const Experience = () => {
           if(hovered){
             setHovered("");
           }
+          if(!start){setStart(true)};
           const targetPosition = new THREE.Vector3();
           scene.getObjectByName(active)?.getWorldPosition(targetPosition);
-         //controls.current.fitToBox(scene.getObjectByName(active));
-          controls.current.setLookAt(
-            0,
-            0,
-            2,
-            targetPosition.x,
-            targetPosition.y,
-            targetPosition.z,
-            true
-          );
+          const cameraPositionZ = targetPosition.x==0?2:2;
+          const cameraPosition = targetPosition.x<0?1:-1;//targetPosition.x*1.65;
+
+          
+          if(targetPosition.x!==0){
+            controls.current.setLookAt(
+              -9*cameraPosition,
+              0,
+              3,
+              -9*cameraPosition,0,0,
+              true
+            );
+          }else{
+            controls.current.setLookAt(
+              0,
+              0,
+              3,
+              targetPosition.x,
+              targetPosition.y,
+              targetPosition.z,
+              true
+            );
+          }
         } else {
           controls.current.setLookAt(0, 0, 10, 0, 0, 0, true);
+          setStart(false);
         }
       }, [active]);
 
@@ -155,7 +174,7 @@ export const Experience = () => {
                 name="Tarnow 1000"
                 backgroundTexture={"textures/bwa_background_texture.png"}
                 backgroundTextureRotationY={111}
-                positionX={-3.3}
+                positionX={-1.7}
                // position-y={0}
                 //position-z={0}
               >
@@ -179,7 +198,7 @@ export const Experience = () => {
                 name="MGMG"
                 backgroundTexture={"textures/mgmg_background_texture.png"}
                 backgroundTextureRotationY={0}
-                positionX={3.3}
+                positionX={1.7}
               //  position-y={0}
               //  position-z={0}
               >
