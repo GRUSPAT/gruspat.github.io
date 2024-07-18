@@ -34,7 +34,7 @@ export const Tile = ({
     const[hovered,setHovered] = useAtom(hoverAtom);
     const [active,setActive] = useAtom(activeAtom);
     const [start, setStart] = useAtom(startAtom);
-    const TitleWithNewLines = name.replaceAll(" ", "\n");
+    const titleWithNewLines = name.replaceAll(" ", "\n");
   
     useFrame((_state, delta) => {
       //const worldOpen = active === name;
@@ -52,7 +52,7 @@ export const Tile = ({
     });
     const {positionTileX} = useSpring({
       positionTileX: start? positionX*4: positionX,
-      config: active? config.slow: config.wobbly
+      config: active? config.gentle: config.wobbly
     });
     const {scaleTile} = useSpring({
       scaleTile: start? 1.3:1,
@@ -67,15 +67,16 @@ export const Tile = ({
       positionHoverY: hovered!==name? 1: -2,
       config: config.gentle
     });
-    const {rotationFull} = useSpring({
+   /* const {rotationFull} = useSpring({
       rotationFull: active===name? 3:0,
       config: config.wobbly
-    });
+    });*/
     const { scale } = useSpring({
       scale: hovered !==name ? 0.01 : 1.4,
       config: config.wobbly
     });
     const AnimatedFloat = animated(Float);
+    const ratioScale = Math.min(1.2, Math.max(0.5, window.innerWidth / 1100));
     /*useEffect(()=>{
       console.log(childrenFloat.current.rotationIntensity);
       //console.log(portalMaterial.current);
@@ -106,11 +107,38 @@ export const Tile = ({
                   <sphereGeometry args={[16,64,64]}/>
                   <meshStandardMaterial map={map} side={THREE.BackSide}/>
                 </mesh>
-                <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="white"position-z={0.32} 
+                <group visible={active?true:false}>
+                <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="white"
                     position-x={0} 
-                    position-y={0.5} scale={0.2} >{TitleWithNewLines}
+                    position-y={1}
+                    position-z={-3}
+                    scale={0.85} >{titleWithNewLines}
                 </Text>
-                
+                <Text font="fonts/Medium.otf" color="white"position-z={0.32} 
+                    position-x={-0.44*ratioScale} 
+                    position-y={-0.1} scale={0.05} >
+                      Embeded device with{"\n"} 
+                      multiple sensor and {"\n"}
+                      heating capability {"\n"}
+                      integrated with{"\n"}
+                      dedicated mobile app
+                </Text>
+                <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="#FF6B00"position-z={0.32} 
+                    position-x={-1} 
+                    position-y={-0.6} scale={0.05} >
+                      .GLB
+                </Text>
+                <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="white"position-z={0.32} 
+                    position-x={-1} 
+                    position-y={-0.65} scale={0.05} >
+                      .PNG
+                </Text>
+                <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="white"position-z={0.32} 
+                    position-x={-1} 
+                    position-y={-0.70} scale={0.05} >
+                      .TXT
+                </Text>
+                </group>
                 <AnimatedFloat floatIntensity={0} rotationIntensity={rotationIntensity} ref={childrenFloat}>
                 {children}
                 </AnimatedFloat>  

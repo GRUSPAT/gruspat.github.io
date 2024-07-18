@@ -27,6 +27,9 @@ export const Experience = () => {
   const [hovered, setHovered] = useAtom(hoverAtom);
   const [active, setActive] = useAtom(activeAtom);
   //const [previous, setPrevious] = useAtom(previousAtom);
+  //const viewport = useThree((state) => state.viewport);
+  const ratioScale = Math.min(1.2, Math.max(0.5, window.innerWidth / 1100));
+  
   
 
   const curve = useMemo(()=>{
@@ -116,16 +119,16 @@ export const Experience = () => {
           if(!start){setStart(true)};
           const targetPosition = new THREE.Vector3();
           scene.getObjectByName(active)?.getWorldPosition(targetPosition);
-          const cameraPositionZ = targetPosition.x==0?2:2;
+          //const cameraPositionZ = targetPosition.x==0?2:2;
           const cameraPosition = targetPosition.x<0?1:-1;//targetPosition.x*1.65;
 
           
           if(targetPosition.x!==0){
             controls.current.setLookAt(
-              -9*cameraPosition,
+              -9*cameraPosition*ratioScale,
               0,
               3,
-              -9*cameraPosition,0,0,
+              -9*cameraPosition*ratioScale,0,0,
               true
             );
           }else{
@@ -158,18 +161,18 @@ export const Experience = () => {
             
             <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="black"position-z={0.32} 
                     position-x={-0.00} 
-                    position-y={3.3} scale={0.60} >PATRYK GRUSZOWSKI
+                    position-y={3.3} scale={0.60*ratioScale} >PATRYK GRUSZOWSKI
             </Text>
             <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="black"position-z={0.32} 
                     position-x={0} 
-                    position-y={2} scale={1.15} >PORTFOLIO
+                    position-y={2} scale={1.15*ratioScale} >PORTFOLIO
             </Text>
             <Text font="fonts/Medium.otf" color="black"position-z={0.32} 
                     position-x={0} 
-                    position-y={2.7} scale={0.6} >GMAIL.LINKEDIN.GITHUB
+                    position-y={2.7} scale={0.6*ratioScale} >GMAIL.LINKEDIN.GITHUB
             </Text>
             
-            <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
+            <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} scale={ratioScale}>
               <Tile 
                 name="Tarnow 1000"
                 backgroundTexture={"textures/bwa_background_texture.png"}

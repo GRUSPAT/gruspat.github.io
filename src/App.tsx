@@ -2,6 +2,7 @@ import { Canvas} from "@react-three/fiber";
 import { Preload } from "@react-three/drei";
 import { Suspense} from "react";
 
+
 import './styles/App.css'
 import { Experience } from "./components/Experience";
 import { Loading } from "./components/Loading";
