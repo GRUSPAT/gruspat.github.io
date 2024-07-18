@@ -15,6 +15,7 @@ import { easing } from "maath"
 import { degToRad } from "maath/misc"
 import { useAtom} from "jotai";
 import { activeAtom, hoverAtom, startAtom } from "./Experience";
+import { useEffect} from "react";
 
 
 
@@ -36,6 +37,9 @@ export const Tile = ({
     const [start, setStart] = useAtom(startAtom);
     const titleWithNewLines = name.replaceAll(" ", "\n");
   
+    useEffect(() => {
+        setStart(false);
+    },[])
     useFrame((_state, delta) => {
       //const worldOpen = active === name;
       //const isItemHover = hovered === name;
