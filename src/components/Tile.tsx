@@ -41,12 +41,14 @@ export const Tile = ({
   
     useEffect(() => {
         setStart(false);
+        
     },[])
     useFrame((_state, delta) => {
       //const worldOpen = active === name;
       //const isItemHover = hovered === name;
       setIsWorldOpen(active === name ? true : false);
       setIsItemHover(hovered === name ? true : false);
+      
       easing.damp(portalMaterial.current, "blend", isWorldOpen ? 1 : 0, 0.001, delta);
      // easing.damp(childrenFloat.current, "rotationIntensity", isItemHover ? 5 : 0, 0.1, delta);
       //console.log(childrenFloat.current.rotationIntensity);
@@ -66,7 +68,7 @@ export const Tile = ({
     });
     
     const {positionHoverZ} = useSpring({
-      positionHoverZ: hovered!==name? -2.1: 0.01,
+      positionHoverZ: !isItemHover? -2.1: 0.01,
       config: config.gentle
     });
     const {positionHoverY} = useSpring({
