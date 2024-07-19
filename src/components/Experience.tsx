@@ -28,7 +28,7 @@ export const Experience = () => {
   const [active, setActive] = useAtom(activeAtom);
   //const [previous, setPrevious] = useAtom(previousAtom);
   //const viewport = useThree((state) => state.viewport);
-  const ratioScale = Math.min(1.2, Math.max(0.5, window.innerWidth / 1100));
+  const ratioScale = active===null|| active===""?Math.min(1.2, Math.max(0.5, window.innerWidth / 1100)):1;
   
   
 
@@ -110,6 +110,9 @@ export const Experience = () => {
         intro();
         setStart(false);
     },[])
+    useEffect(() => {
+      controls.current.setLookAt(0, 0, 10/ratioScale, 0, 0, 0, true);
+    },[ratioScale])
 
     useEffect(() => {
         if (active) {
@@ -143,7 +146,7 @@ export const Experience = () => {
             );
           }
         } else {
-          controls.current.setLookAt(0, 0, 10, 0, 0, 0, true);
+          controls.current.setLookAt(0, 0, 10/ratioScale, 0, 0, 0, true);
           setStart(false);
         }
       }, [active]);
@@ -172,9 +175,10 @@ export const Experience = () => {
                     position-y={2.7} scale={0.6*ratioScale} >GMAIL.LINKEDIN.GITHUB
             </Text>
             
-            <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} scale={ratioScale}>
+            <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
               <Tile 
                 name="Tarnow 1000"
+                description={"Explore Tarnow;follow themed paths;or make your own with;this app full of;interesting places"}
                 backgroundTexture={"textures/bwa_background_texture.png"}
                 backgroundTextureRotationY={111}
                 positionX={-1.7}
@@ -187,6 +191,7 @@ export const Experience = () => {
               </Tile>
               <Tile 
                 name="Smart Hoodie"
+                description={"Embedded device with;multiple sensors and;heating capability;integrated with;dedicated mobile app"}
                 backgroundTexture={"textures/hoodie_background_texture.png"}
                 backgroundTextureRotationY={0}
                 positionX={0}
@@ -199,6 +204,7 @@ export const Experience = () => {
               </Tile>
               <Tile 
                 name="MGMG"
+                description={"Join with your friend;and compete in multiple;mini games with limited;time"}
                 backgroundTexture={"textures/mgmg_background_texture.png"}
                 backgroundTextureRotationY={0}
                 positionX={1.7}

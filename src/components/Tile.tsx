@@ -24,6 +24,7 @@ export const Tile = ({
     backgroundTexture,
     backgroundTextureRotationY,
     name,
+    description,
     positionX,
     ...props
 }) => {
@@ -36,6 +37,7 @@ export const Tile = ({
     const [active,setActive] = useAtom(activeAtom);
     const [start, setStart] = useAtom(startAtom);
     const titleWithNewLines = name.replaceAll(" ", "\n");
+    const descriptionWithNewLines = description.replaceAll(";","\n");
   
     useEffect(() => {
         setStart(false);
@@ -50,13 +52,13 @@ export const Tile = ({
       //console.log(childrenFloat.current.rotationIntensity);
       //console.log(portalMaterial.current);
     });
-    const {rotationIntensity} = useSpring({
+    /*const {rotationIntensity} = useSpring({
       rotationIntensity: isWorldOpen || isItemHover ? 5 : 0.25,
       config: config.gentle
-    });
+    });*/
     const {positionTileX} = useSpring({
       positionTileX: start? positionX*4: positionX,
-      config: active? config.gentle: config.wobbly
+      config: active? config.gentle: config.slow
     });
     const {scaleTile} = useSpring({
       scaleTile: start? 1.3:1,
@@ -105,8 +107,8 @@ export const Tile = ({
               
             >
               <MeshPortalMaterial ref={portalMaterial}>
-                <ambientLight intensity={1}/>
-                <Environment preset="sunset"/>
+                <ambientLight intensity={0.3}/>
+                <Environment preset={active?"city":"sunset"}/>
                 <mesh rotation-y={degToRad(backgroundTextureRotationY)}>
                   <sphereGeometry args={[16,64,64]}/>
                   <meshStandardMaterial map={map} side={THREE.BackSide}/>
@@ -121,29 +123,25 @@ export const Tile = ({
                 <Text font="fonts/Medium.otf" color="white"position-z={0.32} 
                     position-x={-0.44*ratioScale} 
                     position-y={-0.1} scale={0.05} >
-                      Embeded device with{"\n"} 
-                      multiple sensor and {"\n"}
-                      heating capability {"\n"}
-                      integrated with{"\n"}
-                      dedicated mobile app
+                      {descriptionWithNewLines}
                 </Text>
                 <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="#FF6B00"position-z={0.32} 
-                    position-x={-1} 
-                    position-y={-0.6} scale={0.05} >
+                    position-x={-0.9*ratioScale} 
+                    position-y={-0.6*ratioScale} scale={0.05} >
                       .GLB
                 </Text>
                 <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="white"position-z={0.32} 
-                    position-x={-1} 
-                    position-y={-0.65} scale={0.05} >
+                    position-x={-0.9*ratioScale} 
+                    position-y={-0.65*ratioScale} scale={0.05} onClick={() => setActive("Tarnow 1000")}>
                       .PNG
                 </Text>
                 <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="white"position-z={0.32} 
-                    position-x={-1} 
-                    position-y={-0.70} scale={0.05} >
+                    position-x={-0.9*ratioScale} 
+                    position-y={-0.70*ratioScale} scale={0.05} onClick={() => setActive("MGMG")} >
                       .TXT
                 </Text>
                 </group>
-                <AnimatedFloat floatIntensity={0} rotationIntensity={rotationIntensity} ref={childrenFloat}>
+                <AnimatedFloat floatIntensity={0} rotationIntensity={active?5:0} ref={childrenFloat}>
                 {children}
                 </AnimatedFloat>  
               </MeshPortalMaterial>
