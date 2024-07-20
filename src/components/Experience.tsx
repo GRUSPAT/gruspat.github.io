@@ -177,7 +177,7 @@ export const Experience = () => {
             
             <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
               <Tile 
-                name="Tarnow 1000"
+                name="TARNOW 1000"
                 description={"Explore Tarnow;follow themed paths;or make your own with;this app full of;interesting places"}
                 backgroundTexture={"textures/bwa_background_texture.png"}
                 backgroundTextureRotationY={111}
@@ -190,7 +190,7 @@ export const Experience = () => {
                 
               </Tile>
               <Tile 
-                name="Smart Hoodie"
+                name="SMART HOODIE"
                 description={"Embedded device with;multiple sensors and;heating capability;integrated with;dedicated mobile app"}
                 backgroundTexture={"textures/hoodie_background_texture.png"}
                 backgroundTextureRotationY={0}

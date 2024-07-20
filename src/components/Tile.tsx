@@ -38,6 +38,8 @@ export const Tile = ({
     const [start, setStart] = useAtom(startAtom);
     const titleWithNewLines = name.replaceAll(" ", "\n");
     const descriptionWithNewLines = description.replaceAll(";","\n");
+    const mediumFont = "fonts/Medium.otf";
+    const asixFont = "fonts/ASIX-FOUNDER-Italic.otf";
   
     useEffect(() => {
         setStart(false);
@@ -115,7 +117,7 @@ export const Tile = ({
                   <sphereGeometry args={[16,64,64]}/>
                   <meshStandardMaterial map={map} side={THREE.BackSide}/>
                 </mesh>
-                <group visible={active?true:false}>
+                <group visible={isWorldOpen?true:false}>
                 <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="white"
                     position-x={0} 
                     position-y={1}
@@ -141,6 +143,21 @@ export const Tile = ({
                     position-x={-0.9*ratioScale} 
                     position-y={-0.70*ratioScale} scale={0.05} onClick={() => setActive("MGMG")} >
                       .TXT
+                </Text>
+                <Text font={mediumFont} color={name === "TARNOW 1000"?"orange":"white"} position-z={0.32} 
+                    position-x={0.78*ratioScale} 
+                    position-y={-0.50*ratioScale} scale={0.05} onClick={() => setActive("TARNOW 1000")} >
+                      TARNOW 1000
+                </Text>
+                <Text font={mediumFont} color={name === "SMART HOODIE"?"orange":"white"} position-z={0.32} 
+                    position-x={0.78*ratioScale} 
+                    position-y={-0.55*ratioScale} scale={0.05} onClick={() => setActive("SMART HOODIE")} >
+                      SMART HOODIE
+                </Text>
+                <Text font={mediumFont} color={name === "MGMG"?"orange":"white"}position-z={0.32} 
+                    position-x={0.78*ratioScale} 
+                    position-y={-0.60*ratioScale} scale={0.05} onClick={() => setActive("MGMG")} >
+                      MGMG
                 </Text>
                 </group>
                 <AnimatedFloat floatIntensity={0} rotationIntensity={active?5:0} ref={childrenFloat}>
