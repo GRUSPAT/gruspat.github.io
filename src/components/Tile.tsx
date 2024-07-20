@@ -139,7 +139,7 @@ export const Tile = ({
                     position-y={-0.65*ratioScale} scale={0.05} onClick={() => setActive("Tarnow 1000")}>
                       .PNG
                 </Text>
-                <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="white"position-z={0.32} 
+                <Text font={asixFont} color="white"position-z={0.32} 
                     position-x={-0.9*ratioScale} 
                     position-y={-0.70*ratioScale} scale={0.05} onClick={() => setActive("MGMG")} >
                       .TXT
