@@ -118,23 +118,23 @@ export const Tile = ({
                   <meshStandardMaterial map={map} side={THREE.BackSide}/>
                 </mesh>
                 <group visible={isWorldOpen?true:false}>
-                <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="white"
+                <Text font={asixFont} color="white"
                     position-x={0} 
                     position-y={1}
                     position-z={-3}
                     scale={0.85} >{titleWithNewLines}
                 </Text>
-                <Text font="fonts/Medium.otf" color="white"position-z={0.32} 
+                <Text font={mediumFont} color="white"position-z={0.32} 
                     position-x={-0.44*ratioScale} 
                     position-y={-0.1} scale={0.05} >
                       {descriptionWithNewLines}
                 </Text>
-                <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="#FF6B00"position-z={0.32} 
+                <Text font={asixFont} color="#FF6B00"position-z={0.32} 
                     position-x={-0.9*ratioScale} 
                     position-y={-0.6*ratioScale} scale={0.05} >
                       .GLB
                 </Text>
-                <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="white"position-z={0.32} 
+                <Text font={asixFont} color="white"position-z={0.32} 
                     position-x={-0.9*ratioScale} 
                     position-y={-0.65*ratioScale} scale={0.05} onClick={() => setActive("Tarnow 1000")}>
                       .PNG
