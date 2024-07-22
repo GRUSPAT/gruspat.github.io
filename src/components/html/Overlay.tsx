@@ -1,4 +1,4 @@
-import '../styles/overlay.css'
+import '../../styles/overlay.css'
 
 export const Overlay = () => {
     return(

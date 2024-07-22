@@ -111,7 +111,9 @@ export const Experience = () => {
         setStart(false);
     },[])
     useEffect(() => {
-      controls.current.setLookAt(0, 0, 10/ratioScale, 0, 0, 0, true);
+      if(!active){
+        controls.current.setLookAt(0, 0, 10/ratioScale, 0, 0, 0, true);
+      }
     },[ratioScale])
 
     useEffect(() => {

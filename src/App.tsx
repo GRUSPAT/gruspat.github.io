@@ -5,8 +5,8 @@ import { Suspense} from "react";
 
 import './styles/App.css'
 import { Experience } from "./components/Experience";
-import { Loading } from "./components/Loading";
-import { Overlay } from "./components/Overlay";
+import { Loading } from "./components/html/Loading";
+import { Overlay } from "./components/html/Overlay";
 
 function App() {
   return (
