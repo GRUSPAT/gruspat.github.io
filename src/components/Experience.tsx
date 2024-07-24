@@ -21,6 +21,11 @@ export const hoverAtom = atom("");
 export const previousAtom = atom<any>(null);
 import {Tile} from "./Tile"
 
+import { RigidBody, InstancedRigidBodies, InstancedRigidBodyProps, CuboidCollider } from "@react-three/rapier";
+
+
+const COUNT = 500;
+
 export const Experience = () => {
   const controls = useRef<any>(null);
   const [start, setStart] = useAtom(startAtom);
@@ -31,6 +36,19 @@ export const Experience = () => {
   const ratioScale = active===null|| active===""?Math.min(1.2, Math.max(0.5, window.innerWidth / 1100)):1;
   
   
+  const instances = useMemo(() => {
+    const instances: InstancedRigidBodyProps[] = [];
+
+    for (let i = 0; i < COUNT; i++) {
+      instances.push({
+        key: "instance_" + Math.random(),
+        position: [Math.random() * 10, Math.random() * 10, Math.random() * 10],
+        rotation: [Math.random(), Math.random(), Math.random()]
+      });
+    }
+
+    return instances;
+  }, []);
 
   const curve = useMemo(()=>{
     return new THREE.CatmullRomCurve3([
@@ -152,17 +170,29 @@ export const Experience = () => {
           setStart(false);
         }
       }, [active]);
+      
 
     return (
         <>
             <CameraControls ref={controls} />
-            <Line 
-              points={linePoints}
-              color = {"red"}  
-              lineWidth={16}
-              visible={false}
-              
-            />
+            {/*
+            <InstancedRigidBodies
+      instances={instances}
+      colliders="cuboid"
+      colliderNodes={[
+        <CuboidCollider args={[3, 3, 3]} />,
+      ]}
+    >
+      <instancedMesh args={[undefined, undefined, COUNT]} count={COUNT}>
+      <Hoodie></Hoodie>
+      </instancedMesh>
+    </InstancedRigidBodies>
+            */}
+
+            
+            
+            <RigidBody colliders="cuboid" type="fixed">
+            
             
             <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="black"position-z={0.32} 
                     position-x={-0.00} 
@@ -172,6 +202,7 @@ export const Experience = () => {
                     position-x={0} 
                     position-y={2} scale={1.15*ratioScale} >PORTFOLIO
             </Text>
+            
             <Text font="fonts/Medium.otf" color="black"position-z={0.32} 
                     position-x={0} 
                     position-y={2.7} scale={0.6*ratioScale} >GMAIL.LINKEDIN.GITHUB
@@ -218,6 +249,7 @@ export const Experience = () => {
                 
               </Tile>
             </group>
+            </RigidBody>
             <Environment preset="sunset"/>
         </>
     );

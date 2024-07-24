@@ -16,6 +16,7 @@ import { degToRad } from "maath/misc"
 import { useAtom} from "jotai";
 import { activeAtom, hoverAtom, startAtom } from "./Experience";
 import { useEffect} from "react";
+import { RigidBody } from "@react-three/rapier";
 
 
 
@@ -132,38 +133,42 @@ export const Tile = ({
                       {descriptionWithNewLines}
                 </Text>
                 <Text font={asixFont} color="#FF6B00"position-z={0.32} 
-                    position-x={-0.85*ratioScale} 
+                    position-x={-0.90*ratioScale} 
                     position-y={-0.50*ratioScale} scale={0.05} >
                       .GLB
                 </Text>
                 <Text font={asixFont} color="white"position-z={0.32} 
-                    position-x={-0.85*ratioScale} 
+                    position-x={-0.90*ratioScale} 
                     position-y={-0.55*ratioScale} scale={0.05} onClick={() => setActive("Tarnow 1000")}>
                       .PNG
                 </Text>
                 <Text font={asixFont} color="white"position-z={0.32} 
-                    position-x={-0.85*ratioScale} 
+                    position-x={-0.90*ratioScale} 
                     position-y={-0.60*ratioScale} scale={0.05} onClick={() => setActive("MGMG")} >
                       .TXT
                 </Text>
-                <Text font={mediumFont} color={name === "TARNOW 1000"?"orange":"white"} position-z={0.32} 
+                <Text font={mediumFont} color={name === "TARNOW 1000"?"#FF6B00":"white"} position-z={0.32} 
                     position-x={0.78*ratioScale} 
                     position-y={-0.50*ratioScale} scale={0.05} onClick={() => setActive("TARNOW 1000")} >
                       TARNOW 1000
                 </Text>
-                <Text font={mediumFont} color={name === "SMART HOODIE"?"orange":"white"} position-z={0.32} 
+                <Text font={mediumFont} color={name === "SMART HOODIE"?"#FF6B00":"white"} position-z={0.32} 
                     position-x={0.78*ratioScale} 
                     position-y={-0.55*ratioScale} scale={0.05} onClick={() => setActive("SMART HOODIE")} >
                       SMART HOODIE
                 </Text>
-                <Text font={mediumFont} color={name === "MGMG"?"orange":"white"}position-z={0.32} 
+                <RigidBody type="kinematicPosition">
+                <Text font={mediumFont} color={name === "MGMG"?"#FF6B00":"white"}position-z={0.32} 
                     position-x={0.78*ratioScale} 
                     position-y={-0.60*ratioScale} scale={0.05} onClick={() => setActive("MGMG")} >
                       MGMG
                 </Text>
+                </RigidBody>
                 </animated.group>
                 <AnimatedFloat floatIntensity={0} rotationIntensity={active?5:0} ref={childrenFloat}>
+                
                 {children}
+                
                 </AnimatedFloat>  
                 </group>
               </MeshPortalMaterial>

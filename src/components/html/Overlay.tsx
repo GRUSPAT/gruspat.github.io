@@ -2,7 +2,7 @@ import '../../styles/overlay.css'
 
 export const Overlay = () => {
     return(
-        <>
+        <>{/*
         <div className="marquee-container marquee-container-top">
         <div className="marquee">
             <span>
@@ -25,7 +25,7 @@ export const Overlay = () => {
             *This site is currently under development and its core feature aren't available yet. Please consider visiting this site in future.*
             </span>
         </div>
-        </div>
+        </div>*/}
         </>
     )
 }
