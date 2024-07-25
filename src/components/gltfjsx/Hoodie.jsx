@@ -4,7 +4,6 @@ Command: npx gltfjsx@6.2.18 public/models/hoodie_model.glb -o src/components/Hoo
 */
 
 import { useGLTF } from '@react-three/drei'
-
 export function Hoodie(props) {
   const { nodes, materials } = useGLTF('/models/hoodie_model.glb')
   return (

@@ -157,13 +157,11 @@ export const Tile = ({
                     position-y={-0.55*ratioScale} scale={0.05} onClick={() => setActive("SMART HOODIE")} >
                       SMART HOODIE
                 </Text>
-                <RigidBody type="kinematicPosition">
                 <Text font={mediumFont} color={name === "MGMG"?"#FF6B00":"white"}position-z={0.32} 
                     position-x={0.78*ratioScale} 
                     position-y={-0.60*ratioScale} scale={0.05} onClick={() => setActive("MGMG")} >
                       MGMG
                 </Text>
-                </RigidBody>
                 </animated.group>
                 <AnimatedFloat floatIntensity={0} rotationIntensity={active?5:0} ref={childrenFloat}>
                 
