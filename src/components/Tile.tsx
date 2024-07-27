@@ -5,7 +5,9 @@ import {
     Outlines, 
     RoundedBox, 
     useTexture, 
-    Text
+    Text,
+    Svg,
+    Plane
 } from "@react-three/drei";
 import { useSpring, animated, config } from "@react-spring/three";
 import { useRef, useState } from "react";
@@ -14,9 +16,9 @@ import * as THREE from "three";
 import { easing } from "maath"
 import { degToRad } from "maath/misc"
 import { useAtom} from "jotai";
-import { activeAtom, hoverAtom, startAtom } from "./Experience";
+import { activeAtom, hoverAtom, startAtom, slideAtom } from "./Experience";
 import { useEffect} from "react";
-import { RigidBody } from "@react-three/rapier";
+//import { RigidBody } from "@react-three/rapier";
 
 
 
@@ -37,21 +39,28 @@ export const Tile = ({
     const[hovered,setHovered] = useAtom(hoverAtom);
     const [active,setActive] = useAtom(activeAtom);
     const [start, setStart] = useAtom(startAtom);
-    const [slide,setSlide] = useState("");
+    const [slide,setSlide] = useAtom(slideAtom);
     const titleWithNewLines = name.replaceAll(" ", "\n");
     const descriptionWithNewLines = description.replaceAll(";","\n");
     const mediumFont = "fonts/Medium.otf";
     const asixFont = "fonts/ASIX-FOUNDER-Italic.otf";
+    const texture = useTexture("textures/SHDesc.png");
   
     useEffect(() => {
         setStart(false);
         
     },[])
+    useEffect(() => {
+      setIsWorldOpen(active === name ? true : false);
+  },[active])
+  useEffect(() => {
+    setIsItemHover(hovered === name ? true : false);
+},[hovered])
+  
     useFrame((_state, delta) => {
       //const worldOpen = active === name;
       //const isItemHover = hovered === name;
-      setIsWorldOpen(active === name ? true : false);
-      setIsItemHover(hovered === name ? true : false);
+      
       
       easing.damp(portalMaterial.current, "blend", isWorldOpen ? 1 : 0, 0.001, delta);
      // easing.damp(childrenFloat.current, "rotationIntensity", isItemHover ? 5 : 0, 0.1, delta);
@@ -72,11 +81,11 @@ export const Tile = ({
     });
     
     const {positionHoverZ} = useSpring({
-      positionHoverZ: !isItemHover? -2.1: 0.01,
+      positionHoverZ: !isItemHover? -0.5: 0.01,
       config: config.gentle
     });
     const {positionHoverY} = useSpring({
-      positionHoverY: hovered!==name? 1: -2,
+      positionHoverY: hovered!==name? 0: -2,
       config: config.gentle
     });
    /* const {rotationFull} = useSpring({
@@ -85,7 +94,7 @@ export const Tile = ({
     });*/
     const { scale } = useSpring({
       scale: hovered !==name ? 0.01 : 1.4,
-      config: config.wobbly
+      config: config.molasses
     });
     const AnimatedFloat = animated(Float);
     const ratioScale = Math.min(1.2, Math.max(0.5, window.innerWidth / 1100));
@@ -134,7 +143,7 @@ export const Tile = ({
                 </Text>
                 <Text font={asixFont} color="#FF6B00"position-z={0.32} 
                     position-x={-0.90*ratioScale} 
-                    position-y={-0.50*ratioScale} scale={0.05} >
+                    position-y={-0.50*ratioScale} scale={0.05} onClick={()=>{if(slide!=="GLB")setSlide("GLB")}}>
                       .GLB
                 </Text>
                 <Text font={asixFont} color="white"position-z={0.32} 
@@ -144,7 +153,7 @@ export const Tile = ({
                 </Text>
                 <Text font={asixFont} color="white"position-z={0.32} 
                     position-x={-0.90*ratioScale} 
-                    position-y={-0.60*ratioScale} scale={0.05} onClick={() => setActive("MGMG")} >
+                    position-y={-0.60*ratioScale} scale={0.05} onClick={()=>setSlide("TXT")} >
                       .TXT
                 </Text>
                 <Text font={mediumFont} color={name === "TARNOW 1000"?"#FF6B00":"white"} position-z={0.32} 
@@ -162,6 +171,13 @@ export const Tile = ({
                     position-y={-0.60*ratioScale} scale={0.05} onClick={() => setActive("MGMG")} >
                       MGMG
                 </Text>
+                
+                <Plane args={[3,4]}scale={0.3} position-x={0.5} position-y={0.5} position-z={-0.5}>
+                  <meshStandardMaterial map={texture}/>
+                </Plane>
+                
+                {/*<Svg src={"vectors/SmartHoodieDescription.svg"} scale={0.0001} position-x={0.5} position-y={0.5} position-z={-0.5}/>*/}
+                
                 </animated.group>
                 <AnimatedFloat floatIntensity={0} rotationIntensity={active?5:0} ref={childrenFloat}>
                 
@@ -177,6 +193,7 @@ export const Tile = ({
                 <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="#ececec"position-z={0.32} 
                     position-x={0} 
                     position-y={0} scale={0.2} >{"TEST"}</Text>     
+                    <Svg src={"vectors/Award2.svg"} scale={0.005} position-x={-0.73} position-y={-0.3}/>
               </animated.group>
               <Outlines
                 screenspace

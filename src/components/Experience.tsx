@@ -1,13 +1,13 @@
 import { 
   CameraControls,
   Environment,
-  Line,Text
+  Text
 } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 
 import { degToRad } from "maath/misc"
 
-import { useEffect, useMemo, useRef} from "react";
+import { useEffect, useRef} from "react";
 import * as THREE from "three";
 import {atom, useAtom} from "jotai";
 
@@ -18,24 +18,26 @@ import {Mgmg} from "./gltfjsx/Mgmg"
 export const startAtom = atom(true);
 export const activeAtom = atom("");
 export const hoverAtom = atom("");
+export const slideAtom = atom("");
 export const previousAtom = atom<any>(null);
 import {Tile} from "./Tile"
 
-import { RigidBody, InstancedRigidBodies, InstancedRigidBodyProps, CuboidCollider } from "@react-three/rapier";
+//import { RigidBody, InstancedRigidBodies, InstancedRigidBodyProps, CuboidCollider } from "@react-three/rapier";
 
 
-const COUNT = 500;
+//const COUNT = 500;
 
 export const Experience = () => {
   const controls = useRef<any>(null);
   const [start, setStart] = useAtom(startAtom);
   const [hovered, setHovered] = useAtom(hoverAtom);
   const [active, setActive] = useAtom(activeAtom);
+  const [slide, setSlide] = useAtom(slideAtom);
   //const [previous, setPrevious] = useAtom(previousAtom);
   //const viewport = useThree((state) => state.viewport);
   const ratioScale = active===null|| active===""?Math.min(1.2, Math.max(0.5, window.innerWidth / 1100)):1;
   
-  
+  /*
   const instances = useMemo(() => {
     const instances: InstancedRigidBodyProps[] = [];
 
@@ -49,21 +51,8 @@ export const Experience = () => {
 
     return instances;
   }, []);
-
-  const curve = useMemo(()=>{
-    return new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0,0,15),
-      new THREE.Vector3(-23.7,0,7),
-      new THREE.Vector3(-10,0,7.2),
-      new THREE.Vector3(23,0,7.3),
-      new THREE.Vector3(0,0,15),
-    ], true, "catmullrom", 0.5)
-  },[]);
-
-  const linePoints = useMemo(()=>{
-    return curve.getPoints(6);
-  }, [curve])
-  
+*/
+ 
   
 
    // useCursor(hovered);
@@ -127,12 +116,21 @@ export const Experience = () => {
       setActive("");
         intro();
         setStart(false);
+        setSlide("GLB");
     },[])
-    useEffect(() => {
+    /*useEffect(() => {
       if(!active){
         controls.current.setLookAt(0, 0, 10/ratioScale, 0, 0, 0, true);
       }
-    },[ratioScale])
+    },[ratioScale])*/
+    useEffect(() => {
+      if(slide === "TXT"){
+        controls.current.truck(0,1,true);
+      }else if(slide === "GLB"){
+        controls.current.truck(0,-1,true);
+      }
+      
+    },[slide])
 
     useEffect(() => {
         if (active) {
@@ -151,7 +149,7 @@ export const Experience = () => {
               -9*cameraPosition*ratioScale,
               0,
               3,
-              -9*cameraPosition*ratioScale,0,0,
+              -9*cameraPosition *ratioScale,0,0,
               true
             );
           }else{
@@ -191,21 +189,21 @@ export const Experience = () => {
 
             
             
-            <RigidBody colliders="cuboid" type="fixed">
+    
             
             
             <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="black"position-z={0.32} 
                     position-x={-0.00} 
-                    position-y={3.3} scale={0.60*ratioScale} >PATRYK GRUSZOWSKI
+                    position-y={3.3} scale={0.60/*</>*ratioScale*/} >PATRYK GRUSZOWSKI
             </Text>
             <Text font="fonts/ASIX-FOUNDER-Italic.otf" color="black"position-z={0.32} 
                     position-x={0} 
-                    position-y={2} scale={1.15*ratioScale} >PORTFOLIO
+                    position-y={2} scale={1.15/*</>*ratioScale*/} >PORTFOLIO
             </Text>
             
             <Text font="fonts/Medium.otf" color="black"position-z={0.32} 
                     position-x={0} 
-                    position-y={2.7} scale={0.6*ratioScale} >GMAIL.LINKEDIN.GITHUB
+                    position-y={2.7} scale={0.6/**ratioScale*/} >GMAIL.LINKEDIN.GITHUB
             </Text>
             
             <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
@@ -249,7 +247,7 @@ export const Experience = () => {
                 
               </Tile>
             </group>
-            </RigidBody>
+            
             <Environment preset="sunset"/>
         </>
     );
