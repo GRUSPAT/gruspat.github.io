@@ -125,9 +125,9 @@ export const Experience = () => {
     },[ratioScale])*/
     useEffect(() => {
       if(slide === "TXT"){
-        controls.current.truck(0,1,true);
+        controls.current.truck(0,1.7,true);
       }else if(slide === "GLB"){
-        controls.current.truck(0,-1,true);
+        controls.current.truck(0,-1.7,true);
       }
       
     },[slide])
@@ -230,7 +230,7 @@ export const Experience = () => {
                // position-z={0}
               >
                 
-                  <Hoodie scale={0.3 } position-y={-0.5} position-z={-0.5}/>
+                  <Hoodie scale={slide === "GLB"?0.3:0.03 } position-y={slide === "GLB"?-0.5:-1.2} position-z={-0.5}/>
                 
               </Tile>
               <Tile 

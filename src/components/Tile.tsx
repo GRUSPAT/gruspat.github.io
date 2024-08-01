@@ -172,14 +172,14 @@ export const Tile = ({
                       MGMG
                 </Text>
                 
-                <Plane args={[3,4]}scale={0.3} position-x={0.5} position-y={0.5} position-z={-0.5}>
+                <Plane args={[3,4]}scale={0.3} position-x={0} position-y={-1.7} position-z={-0.5}>
                   <meshStandardMaterial map={texture}/>
                 </Plane>
                 
                 {/*<Svg src={"vectors/SmartHoodieDescription.svg"} scale={0.0001} position-x={0.5} position-y={0.5} position-z={-0.5}/>*/}
                 
                 </animated.group>
-                <AnimatedFloat floatIntensity={0} rotationIntensity={active?5:0} ref={childrenFloat}>
+                <AnimatedFloat floatIntensity={0} rotationIntensity={active?5:0} ref={childrenFloat} >
                 
                 {children}
                 
