@@ -88,10 +88,6 @@ export const Tile = ({
       positionHoverY: hovered!==name? 0: -2,
       config: config.gentle
     });
-   /* const {rotationFull} = useSpring({
-      rotationFull: active===name? 3:0,
-      config: config.wobbly
-    });*/
     const { scale } = useSpring({
       scale: hovered !==name ? 0.01 : 1.4,
       config: config.molasses
