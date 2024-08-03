@@ -4,16 +4,12 @@ import {
   Text
 } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
-
-import { degToRad } from "maath/misc"
-
+//import { degToRad } from "maath/misc"
 import { useEffect, useRef} from "react";
 import * as THREE from "three";
 import {atom, useAtom} from "jotai";
 
-import {Bwa} from "./gltfjsx/Bwa"
-import { Hoodie } from "./gltfjsx/Hoodie";
-import {Mgmg} from "./gltfjsx/Mgmg"
+
 
 export const startAtom = atom(true);
 export const activeAtom = atom("");
@@ -21,6 +17,7 @@ export const hoverAtom = atom("");
 export const slideAtom = atom("");
 export const previousAtom = atom<any>(null);
 import {Tile} from "./Tile"
+import TileData from "./data/TileData"
 
 //import { RigidBody, InstancedRigidBodies, InstancedRigidBodyProps, CuboidCollider } from "@react-three/rapier";
 
@@ -206,48 +203,17 @@ export const Experience = () => {
                     position-y={2.7} scale={0.6/**ratioScale*/} >GMAIL.LINKEDIN.GITHUB
             </Text>
             
-            <group rotation-y={degToRad(0)} position-y={0} position-z={0} position-x={0} >
-              <Tile 
-                name="TARNOW 1000"
-                description={"Explore Tarnow;follow themed paths;or make your own with;this app full of;interesting places"}
-                backgroundTexture={"textures/bwa_background_texture.png"}
-                backgroundTextureRotationY={111}
-                positionX={-1.7}
-               // position-y={0}
-                //position-z={0}
-              >
-                
-                  <Bwa scale={4.6} position-y={-0.58} position-x={-0.6}/>
-                
-              </Tile>
-              <Tile 
-                name="SMART HOODIE"
-                description={"Embedded device with;multiple sensors and;heating capability;integrated with;dedicated mobile app"}
-                backgroundTexture={"textures/hoodie_background_texture.png"}
-                backgroundTextureRotationY={0}
-                positionX={0}
-               // position-y={0}
-               // position-z={0}
-              >
-                
-                  <Hoodie scale={slide === "GLB"?0.3:0.03 } position-y={slide === "GLB"?-0.5:-1.2} position-z={-0.5}/>
-                
-              </Tile>
-              <Tile 
-                name="MGMG"
-                description={"Join with your friend;and compete in multiple;mini games with limited;time"}
-                backgroundTexture={"textures/mgmg_background_texture.png"}
-                backgroundTextureRotationY={0}
-                positionX={1.7}
-              //  position-y={0}
-              //  position-z={0}
-              >
-                
-                  <Mgmg position-y={-0.8} scale={0.25} position-z={0.30} position-x={-0.50}/>
-                
-              </Tile>
-            </group>
-            
+    {TileData.map((data,index) => (
+        <Tile 
+          key={index}
+          name={data.name} 
+          description={data.description}
+          backgroundTexture={data.backgroundTexture}
+          positionX={data.positionX}
+        >
+          {data.children}
+        </Tile>
+      ))}   
             <Environment preset="sunset"/>
         </>
     );

@@ -14,10 +14,11 @@ import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { easing } from "maath"
-import { degToRad } from "maath/misc"
+//import { degToRad } from "maath/misc"
 import { useAtom} from "jotai";
 import { activeAtom, hoverAtom, startAtom, slideAtom } from "./Experience";
 import { useEffect} from "react";
+import { TITLE_FONT_PATH, SUB_TITLE_FONT_PATH } from "./data/GlobalData";
 //import { RigidBody } from "@react-three/rapier";
 
 
@@ -25,7 +26,6 @@ import { useEffect} from "react";
 export const Tile = ({
     children,
     backgroundTexture,
-    backgroundTextureRotationY,
     name,
     description,
     positionX,
@@ -42,8 +42,6 @@ export const Tile = ({
     const [slide,setSlide] = useAtom(slideAtom);
     const titleWithNewLines = name.replaceAll(" ", "\n");
     const descriptionWithNewLines = description.replaceAll(";","\n");
-    const mediumFont = "fonts/Medium.otf";
-    const asixFont = "fonts/ASIX-FOUNDER-Italic.otf";
     const texture = useTexture("textures/SHDesc.png");
   
     useEffect(() => {
@@ -92,7 +90,6 @@ export const Tile = ({
       scale: hovered !==name ? 0.01 : 1.4,
       config: config.molasses
     });
-    const AnimatedFloat = animated(Float);
     const ratioScale = Math.min(1.2, Math.max(0.5, window.innerWidth / 1100));
     /*useEffect(()=>{
       console.log(childrenFloat.current.rotationIntensity);
@@ -120,49 +117,49 @@ export const Tile = ({
               <MeshPortalMaterial ref={portalMaterial}>
                 <ambientLight intensity={0.3}/>
                 <Environment preset={active?"city":"sunset"}/>
-                <mesh rotation-y={degToRad(backgroundTextureRotationY)}>
+                <mesh>
                   <sphereGeometry args={[16,64,64]}/>
                   <meshStandardMaterial map={map} side={THREE.BackSide}/>
                 </mesh>
                 <group>
                 <animated.group visible={isWorldOpen?true:false}>
-                <Text font={asixFont} color="white"
+                <Text font={TITLE_FONT_PATH} color="white"
                     position-x={0} 
                     position-y={1}
                     position-z={-3}
                     scale={0.85*ratioScale} >{titleWithNewLines}
                 </Text>
-                <Text font={mediumFont} color="white"position-z={0.42} 
+                <Text font={SUB_TITLE_FONT_PATH} color="white"position-z={0.42} 
                     position-x={-0.44*ratioScale} 
                     position-y={-0.1} scale={0.05} >
                       {descriptionWithNewLines}
                 </Text>
-                <Text font={asixFont} color="#FF6B00"position-z={0.32} 
+                <Text font={TITLE_FONT_PATH} color="#FF6B00"position-z={0.32} 
                     position-x={-0.90*ratioScale} 
                     position-y={-0.50*ratioScale} scale={0.05} onClick={()=>{if(slide!=="GLB")setSlide("GLB")}}>
                       .GLB
                 </Text>
-                <Text font={asixFont} color="white"position-z={0.32} 
+                <Text font={TITLE_FONT_PATH} color="white"position-z={0.32} 
                     position-x={-0.90*ratioScale} 
                     position-y={-0.55*ratioScale} scale={0.05} onClick={() => setActive("Tarnow 1000")}>
                       .PNG
                 </Text>
-                <Text font={asixFont} color="white"position-z={0.32} 
+                <Text font={TITLE_FONT_PATH} color="white"position-z={0.32} 
                     position-x={-0.90*ratioScale} 
                     position-y={-0.60*ratioScale} scale={0.05} onClick={()=>setSlide("TXT")} >
                       .TXT
                 </Text>
-                <Text font={mediumFont} color={name === "TARNOW 1000"?"#FF6B00":"white"} position-z={0.32} 
+                <Text font={SUB_TITLE_FONT_PATH} color={name === "TARNOW 1000"?"#FF6B00":"white"} position-z={0.32} 
                     position-x={0.78*ratioScale} 
                     position-y={-0.50*ratioScale} scale={0.05} onClick={() => setActive("TARNOW 1000")} >
                       TARNOW 1000
                 </Text>
-                <Text font={mediumFont} color={name === "SMART HOODIE"?"#FF6B00":"white"} position-z={0.32} 
+                <Text font={SUB_TITLE_FONT_PATH} color={name === "SMART HOODIE"?"#FF6B00":"white"} position-z={0.32} 
                     position-x={0.78*ratioScale} 
                     position-y={-0.55*ratioScale} scale={0.05} onClick={() => setActive("SMART HOODIE")} >
                       SMART HOODIE
                 </Text>
-                <Text font={mediumFont} color={name === "MGMG"?"#FF6B00":"white"}position-z={0.32} 
+                <Text font={SUB_TITLE_FONT_PATH} color={name === "MGMG"?"#FF6B00":"white"}position-z={0.32} 
                     position-x={0.78*ratioScale} 
                     position-y={-0.60*ratioScale} scale={0.05} onClick={() => setActive("MGMG")} >
                       MGMG
@@ -175,11 +172,11 @@ export const Tile = ({
                 {/*<Svg src={"vectors/SmartHoodieDescription.svg"} scale={0.0001} position-x={0.5} position-y={0.5} position-z={-0.5}/>*/}
                 
                 </animated.group>
-                <AnimatedFloat floatIntensity={0} rotationIntensity={active?5:0} ref={childrenFloat} >
+                <Float floatIntensity={0} rotationIntensity={active?5:0} ref={childrenFloat} >
                 
                 {children}
                 
-                </AnimatedFloat>  
+                </Float>  
                 </group>
               </MeshPortalMaterial>
               <animated.group scale={scale} position-y={positionHoverY} position-z={positionHoverZ}> 
