@@ -7,7 +7,8 @@ import {
     useTexture, 
     Text,
     Svg,
-    Plane
+    Plane,
+    DragControls
 } from "@react-three/drei";
 import { useSpring, animated, config } from "@react-spring/three";
 import { useRef, useState } from "react";
@@ -122,7 +123,7 @@ export const Tile = ({
                   <meshStandardMaterial map={map} side={THREE.BackSide}/>
                 </mesh>
                 <group>
-                <animated.group visible={isWorldOpen?true:false}>
+                <group visible={isWorldOpen?true:false}>
                 <Text font={TITLE_FONT_PATH} color="white"
                     position-x={0} 
                     position-y={1}
@@ -137,7 +138,7 @@ export const Tile = ({
                 <Text font={TITLE_FONT_PATH} color="#FF6B00"position-z={0.32} 
                     position-x={-0.90*ratioScale} 
                     position-y={-0.50*ratioScale} scale={0.05} onClick={()=>{if(slide!=="GLB")setSlide("GLB")}}>
-                      .GLB
+                      BACK
                 </Text>
                 <Text font={TITLE_FONT_PATH} color="white"position-z={0.32} 
                     position-x={-0.90*ratioScale} 
@@ -164,14 +165,15 @@ export const Tile = ({
                     position-y={-0.60*ratioScale} scale={0.05} onClick={() => setActive("MGMG")} >
                       MGMG
                 </Text>
-                
+                <DragControls>
                 <Plane args={[3,4]}scale={0.3} position-x={0} position-y={-1.7} position-z={-0.5}>
                   <meshStandardMaterial map={texture}/>
                 </Plane>
+                </DragControls>
                 
                 {/*<Svg src={"vectors/SmartHoodieDescription.svg"} scale={0.0001} position-x={0.5} position-y={0.5} position-z={-0.5}/>*/}
                 
-                </animated.group>
+                </group>
                 <Float floatIntensity={0} rotationIntensity={active?5:0} ref={childrenFloat} >
                 
                 {children}
