@@ -54,7 +54,9 @@ export const Tile = ({
   },[active])
   useEffect(() => {
     setIsItemHover(hovered === name ? true : false);
+   // portalMaterial.current.blend = isItemHover?0.9:0;
 },[hovered])
+
   
     useFrame((_state, delta) => {
       //const worldOpen = active === name;
