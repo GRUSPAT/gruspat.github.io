@@ -1,39 +1,39 @@
-  import { 
-    CameraControls,
-    Environment,
-    Text
-  } from "@react-three/drei";
-  import { useThree } from "@react-three/fiber";
+import { 
+  CameraControls,
+  Environment,
+  Text
+} from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
   //import { degToRad } from "maath/misc"
-  import { useEffect, useRef} from "react";
-  import * as THREE from "three";
-  import {atom, useAtom} from "jotai";
+import { useEffect, useRef} from "react";
+import * as THREE from "three";
+import {atom, useAtom} from "jotai";
+import {Tile} from "./Tile"
+import TileData from "./data/TileData"
+import { TITLE_FONT_PATH, SUB_TITLE_FONT_PATH } from "./data/GlobalData";
 
 
-
-  export const startAtom = atom(true);
-  export const activeAtom = atom("");
-  export const hoverAtom = atom("");
-  export const slideAtom = atom("");
-  export const previousAtom = atom<any>(null);
-  import {Tile} from "./Tile"
-  import TileData from "./data/TileData"
-  import { TITLE_FONT_PATH, SUB_TITLE_FONT_PATH } from "./data/GlobalData";
+export const startAtom = atom(true);
+export const activeAtom = atom("");
+export const hoverAtom = atom("");
+export const slideAtom = atom("");
+export const previousAtom = atom<any>(null);
+  
 
   //import { RigidBody, InstancedRigidBodies, InstancedRigidBodyProps, CuboidCollider } from "@react-three/rapier";
 
 
   //const COUNT = 500;
 
-  export const Experience = () => {
-    const controls = useRef<any>(null);
-    const [start, setStart] = useAtom(startAtom);
-    const [hovered, setHovered] = useAtom(hoverAtom);
-    const [active, setActive] = useAtom(activeAtom);
-    const [slide, setSlide] = useAtom(slideAtom);
+export const Experience = () => {
+  const controls = useRef<any>(null);
+  const [start, setStart] = useAtom(startAtom);
+  const [hovered, setHovered] = useAtom(hoverAtom);
+  const [active, setActive] = useAtom(activeAtom);
+  const [slide, setSlide] = useAtom(slideAtom);
     //const [previous, setPrevious] = useAtom(previousAtom);
     //const viewport = useThree((state) => state.viewport);
-    const ratioScale = active===null|| active===""?Math.min(1.2, Math.max(0.5, window.innerWidth / 1100)):1;
+  const ratioScale = active===null|| active===""?Math.min(1.2, Math.max(0.5, window.innerWidth / 1100)):1;
     
     /*
     const instances = useMemo(() => {
@@ -169,35 +169,22 @@
         }, [active]);
         
 
-      return (
-          <>
-              <CameraControls 
-                ref={controls} 
-                touches={{
-                  one: 0,
-                  two: 0,
-                  three: 0,
-                }}
-                mouseButtons={{
-                  left: 0,
-                  middle: 0,
-                  right: 0,
-                  wheel: 0
-                }} 
-              />
-              {/*
-              <InstancedRigidBodies
-        instances={instances}
-        colliders="cuboid"
-        colliderNodes={[
-          <CuboidCollider args={[3, 3, 3]} />,
-        ]}
-      >
-        <instancedMesh args={[undefined, undefined, COUNT]} count={COUNT}>
-        <Hoodie></Hoodie>
-        </instancedMesh>
-      </InstancedRigidBodies>
-              */}
+  return (
+    <>
+      <CameraControls 
+        ref={controls} 
+        touches={{
+          one: 0,
+          two: 0,
+          three: 0,
+        }}
+        mouseButtons={{
+          left: 0,
+          middle: 0,
+          right: 0,
+          wheel: 0
+        }} 
+      />
               <group scale={0.6} position-y={1}>
               <Text font={TITLE_FONT_PATH} color="black"position-z={0.32} 
                       position-x={-0.00} 
@@ -228,7 +215,7 @@
             {data.children}
           </Tile>
         ))}   
-              <Environment preset="sunset"/>
-          </>
-      );
-  };
+      <Environment preset="sunset"/>
+    </>
+  );
+};

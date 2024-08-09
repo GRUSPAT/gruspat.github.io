@@ -8,6 +8,7 @@ import {
     Text,
     Svg,
     Plane,
+    Box,
     DragControls
 } from "@react-three/drei";
 import { useSpring, animated, config } from "@react-spring/three";
@@ -20,7 +21,7 @@ import { useAtom} from "jotai";
 import { activeAtom, hoverAtom, startAtom, slideAtom } from "./Experience";
 import { useEffect} from "react";
 import { TITLE_FONT_PATH, SUB_TITLE_FONT_PATH } from "./data/GlobalData";
-//import { RigidBody } from "@react-three/rapier";
+
 
 
 
@@ -44,14 +45,18 @@ export const Tile = ({
     const titleWithNewLines = name.replaceAll(" ", "\n");
     const descriptionWithNewLines = description.replaceAll(";","\n");
     const texture = useTexture("textures/SHDesc.png");
+    const texture2 = useTexture("images/SmartHoodie-1.jpeg");
+    const texture3 = useTexture("images/MS.png");
   
     useEffect(() => {
         setStart(false);
         
     },[])
+
     useEffect(() => {
       setIsWorldOpen(active === name ? true : false);
-  },[active])
+    },[active])
+
   useEffect(() => {
     setIsItemHover(hovered === name ? true : false);
    // portalMaterial.current.blend = isItemHover?0.9:0;
@@ -166,11 +171,34 @@ export const Tile = ({
                     position-x={0.78*ratioScale} 
                     position-y={-0.60*ratioScale} scale={0.05} onClick={() => setActive("MGMG")} >
                       MGMG
+                      
                 </Text>
-                <DragControls>
+                <DragControls dragLimits={[[-1,1],[-1,1],[0,0]]}>
                 <Plane args={[3,4]}scale={0.3} position-x={0} position-y={-1.7} position-z={-0.5}>
                   <meshStandardMaterial map={texture}/>
                 </Plane>
+                </DragControls>
+                <DragControls dragLimits={[[-1,1],[-1,1],[0,0]]}>
+                <Plane args={[4,3]}scale={0.3} position-x={-0.5} position-y={-1.7} position-z={-0.3}>
+                  <meshStandardMaterial map={texture2}/>
+                </Plane>
+                </DragControls>
+                <DragControls dragLimits={[[-1,1],[-1,1],[0,0]]}>
+                <Box args={[2,4,0.01]}scale={0.3} position-x={-0.5} position-y={-1.7} position-z={-0.3}>
+                
+                  <meshStandardMaterial map={texture3}/>
+                  <Outlines
+                screenspace
+                toneMapped={false}
+                polygonOffset
+                polygonOffsetFactor={100}
+                transparent
+                opacity={1}
+                color="#FF6B00"
+                angle={Math.PI}
+                thickness={8}
+                />
+                </Box>
                 </DragControls>
                 
                 {/*<Svg src={"vectors/SmartHoodieDescription.svg"} scale={0.0001} position-x={0.5} position-y={0.5} position-z={-0.5}/>*/}
