@@ -38,6 +38,7 @@ export const Tile = ({
     const childrenFloat = useRef<any>(null);
     const [isWorldOpen, setIsWorldOpen] = useState(false);
     const [isItemHover, setIsItemHover] = useState(false);
+    const [isPhotoHover, setPhotoHover] = useState("");
     const[hovered,setHovered] = useAtom(hoverAtom);
     const [active,setActive] = useAtom(activeAtom);
     const [start, setStart] = useAtom(startAtom);
@@ -173,18 +174,40 @@ export const Tile = ({
                       MGMG
                       
                 </Text>
-                <DragControls dragLimits={[[-1,1],[-1,1],[0,0]]}>
-                <Plane args={[3,4]}scale={0.3} position-x={0} position-y={-1.7} position-z={-0.5}>
+                <DragControls dragLimits={[[-1,1],[-1,1],[0,0]]} onDrag={()=>setPhotoHover("p1")}>
+                <Box args={[3,4,0.01]}scale={isPhotoHover==="p1"?0.35:0.3} position-x={0} position-y={-1.7} position-z={-0.5}>
                   <meshStandardMaterial map={texture}/>
-                </Plane>
+                  <Outlines
+                screenspace
+                toneMapped={false}
+                polygonOffset
+                polygonOffsetFactor={100}
+                transparent
+                opacity={1}
+                color={isPhotoHover==="p3"?"#FF6B00":"#FFFFFF"}
+                angle={Math.PI}
+                thickness={8}
+                />
+                </Box>
                 </DragControls>
-                <DragControls dragLimits={[[-1,1],[-1,1],[0,0]]}>
-                <Plane args={[4,3]}scale={0.3} position-x={-0.5} position-y={-1.7} position-z={-0.3}>
+                <DragControls dragLimits={[[-1,1],[-1,1],[0,0]]} onDrag={()=>setPhotoHover("p2")} >
+                <Box args={[4,3,0.01]}scale={isPhotoHover==="p2"?0.35:0.3} position-x={-0.5} position-y={-1.7} position-z={-0.3}>
                   <meshStandardMaterial map={texture2}/>
-                </Plane>
+                  <Outlines
+                screenspace
+                toneMapped={false}
+                polygonOffset
+                polygonOffsetFactor={100}
+                transparent
+                opacity={1}
+                color={isPhotoHover==="p3"?"#FF6B00":"#FFFFFF"}
+                angle={Math.PI}
+                thickness={8}
+                />
+                </Box>
                 </DragControls>
-                <DragControls dragLimits={[[-1,1],[-1,1],[0,0]]}>
-                <Box args={[2,4,0.01]}scale={0.3} position-x={-0.5} position-y={-1.7} position-z={-0.3}>
+                <DragControls dragLimits={[[-1,1],[-1,1],[0,0]]} onDrag={()=>setPhotoHover("p3")}>
+                <Box args={[2,4,0.01]}scale={isPhotoHover==="p3"?0.35:0.3} position-x={-0.5} position-y={-1.7} position-z={-0.3}>
                 
                   <meshStandardMaterial map={texture3}/>
                   <Outlines
@@ -194,7 +217,7 @@ export const Tile = ({
                 polygonOffsetFactor={100}
                 transparent
                 opacity={1}
-                color="#FF6B00"
+                color={isPhotoHover==="p3"?"#FF6B00":"#FFFFFF"}
                 angle={Math.PI}
                 thickness={8}
                 />
