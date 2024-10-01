@@ -12,7 +12,6 @@ import {Tile} from "./Tile"
 import TileData from "./data/TileData"
 import { TITLE_FONT_PATH, SUB_TITLE_FONT_PATH } from "./data/GlobalData";
 
-
 export const startAtom = atom(true);
 export const activeAtom = atom("");
 export const hoverAtom = atom("");
@@ -51,8 +50,6 @@ export const Experience = () => {
     }, []);
   */
   
-    
-
     // useCursor(hovered);
       const scene = useThree((state) => state.scene);
       
@@ -109,7 +106,6 @@ export const Experience = () => {
           controls.current.setLookAt(0, 0, 15, 0, 0, 0, true);
         }
       }, [hovered]);*/
-
       useEffect(() => {
         setHovered("");
         setActive("");
