@@ -1,7 +1,7 @@
 import { 
   CameraControls,
   Environment,
-  Text
+  Svg
 } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
   //import { degToRad } from "maath/misc"
@@ -10,7 +10,7 @@ import * as THREE from "three";
 import {atom, useAtom} from "jotai";
 import {Tile} from "./Tile"
 import TileData from "./data/TileData"
-import { TITLE_FONT_PATH, SUB_TITLE_FONT_PATH } from "./data/GlobalData";
+//import { TITLE_FONT_PATH, SUB_TITLE_FONT_PATH } from "./data/GlobalData";
 
 export const startAtom = atom(true);
 export const activeAtom = atom("");
@@ -181,24 +181,8 @@ export const Experience = () => {
           wheel: 0
         }} 
       />
-              <group scale={0.6} position-y={1}>
-              <Text font={TITLE_FONT_PATH} color="black"position-z={0.32} 
-                      position-x={-0.00} 
-                      position-y={3.3} scale={0.60/*</>*ratioScale*/} >PATRYK GRUSZOWSKI
-              </Text>
-              <Text font={TITLE_FONT_PATH} color="black"position-z={0.32} 
-                      position-x={0} 
-                      position-y={2} scale={1.15/*</>*ratioScale*/} >PORTFOLIO
-              </Text>
-              
-              <Text font={SUB_TITLE_FONT_PATH} color="black"position-z={0.32} 
-                      position-x={0} 
-                      position-y={1.3} scale={0.6/**ratioScale*/} >GMAIL.LINKEDIN.GITHUB
-              </Text>
-              <Text font={SUB_TITLE_FONT_PATH} color="black"position-z={0.32} 
-                      position-x={0} 
-                      position-y={2.7} scale={0.57/**ratioScale*/} >MOBILE APP DEVELOPER
-              </Text>
+              <group scale={0.25} position-y={2.7} position-x={-4.35}>
+              <Svg src={"vectors/HEADER.svg"} scale={0.0025} />
               </group>
       {TileData.map((data,index) => (
           <Tile 

@@ -7,7 +7,7 @@ import {
     useTexture, 
     Text,
     Svg,
-    Plane,
+    
     Box,
     DragControls
 } from "@react-three/drei";
