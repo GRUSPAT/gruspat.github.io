@@ -1,5 +1,6 @@
 import '../../styles/loading.css'
-import CurvedLoop from './CurvedLoop';
+//import CurvedLoop from './CurvedLoop';
+import DomeGallery from './DomeGallery';
 import Aurora from './Aurora';
 
 export const Loading = () => {
@@ -10,13 +11,16 @@ export const Loading = () => {
   colorStops={["#5227FF", "#FF6B00", "#fff"]} 
   amplitude={1.2}
 />
-            
-            <CurvedLoop
-             interactive={false}
-             marqueeText='powstaje · nowa · strona ·'
-             speed={1}
-             
-            />
+            <div style={{ width: '100vw', height: '100vh'}}>
+      <DomeGallery fit={0.5}
+        minRadius={1000}
+        segments={38}
+        padFactor={0}
+        fitBasis={'width'}
+        maxVerticalRotationDeg={3}
+        grayscale={false}/>
+    </div>
+           
       
         </>
     )
