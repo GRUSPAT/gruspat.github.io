@@ -13,7 +13,7 @@ export const Loading = () => {
 />
             <div style={{ width: '100vw', height: '100vh'}}>
       <DomeGallery fit={0.5}
-        minRadius={1000}
+        minRadius={600}
         segments={38}
         padFactor={0}
         fitBasis={'width'}
