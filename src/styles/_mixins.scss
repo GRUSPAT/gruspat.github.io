@@ -1,0 +1,60 @@
+@use 'variables' as *;
+
+@mixin custom-scrollbar($width: $scrollbar-width,
+  $track-bg: transparent,
+  $thumb-bg: $scrollbar-thumb-bg,
+  $radius: 2px) {
+  &::-webkit-scrollbar {
+    width: $width;
+
+    &-track {
+      background: $track-bg;
+    }
+
+    &-thumb {
+      background: $thumb-bg;
+      border-radius: $radius;
+    }
+  }
+}
+
+@mixin flex-center($gap: 0, $direction: row) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: $direction;
+
+  @if $gap !=0 {
+    gap: $gap;
+  }
+}
+
+@mixin glass-surface(
+  $bg: $glass-surface-dark,
+  $blur: 24px,
+  $saturate: 140%,
+  $border: $border-glass,
+  $shadow: null
+) {
+  background: $bg;
+  backdrop-filter: blur($blur) saturate($saturate);
+  -webkit-backdrop-filter: blur($blur) saturate($saturate);
+  border: 1px solid $border;
+
+  @if $shadow != null {
+    box-shadow: $shadow;
+  }
+}
+
+
+@mixin button-reset {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+}

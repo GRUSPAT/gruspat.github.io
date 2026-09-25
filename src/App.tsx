@@ -1,39 +1,27 @@
-//import { Canvas} from "@react-three/fiber";
-//import { Preload } from "@react-three/drei";
-//import { Suspense} from "react";
+import { useEffect } from 'react';
+import { usePortfolioStore } from './store/usePortfolioStore';
+import { SceneCanvas } from './components/canvas/SceneCanvas';
+import { LoadingScreen } from './components/overlay/LoadingScreen';
+import { PreviewOverlay } from './components/overlay/PreviewOverlay';
+import { TopNavigation } from './components/overlay/TopNavigation';
+import { InteractionHint } from './components/overlay/InteractionHint';
 
+export function App() {
+  const loadTiles = usePortfolioStore((state) => state.loadTiles);
 
-import './styles/App.css'
-//import { Experience } from "./components/Experience";
-import { Loading } from "./components/overlays/Loading";
-//import { Overlay } from "./components/overlays/Overlay";
-//import { Physics } from "@react-three/rapier";
+  useEffect(() => {
+    loadTiles();
+  }, [loadTiles]);
 
-function App() {
   return (
-   <>
-  <div className="App">
-    <Loading/>
-  </div>  
-  
-    {/*
-  <Suspense fallback={<Loading/>}>
-      <div className="App">
-      <Canvas shadows={false} camera={{position: [0,0,8], fov: 42}}>
-        <color attach="background" args={["#FFFFFF"]}/>
-        
-        <Experience/>
-        
-        <Preload all />  
-      </Canvas>
-      <Overlay/>
-    </div>
-    
-    
-    </Suspense>
-    */}
+    <>
+      <LoadingScreen />
+      <SceneCanvas />
+      <TopNavigation />
+      <InteractionHint />
+      <PreviewOverlay />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

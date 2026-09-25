@@ -1,0 +1,60 @@
+$font: 'Lato', sans-serif;
+
+// Base backgrounds
+$bg-dark: #0c0c0e;
+$bg-loading: #0a0a0c;
+
+// Text color hierarchy
+$text-white: #ffffff;
+$text-primary: rgba(255, 255, 255, 0.87);
+$text-secondary: rgba(255, 255, 255, 0.85);
+$text-body: rgba(255, 255, 255, 0.8);
+$text-counter: rgba(255, 255, 255, 0.65);
+$text-muted: rgba(255, 255, 255, 0.55);
+$text-dim-dark: #666666;
+
+// Glassmorphism surfaces
+$glass-surface-dark: rgba(18, 18, 24, 0.75);
+$glass-surface-dark-hover: rgba(28, 28, 38, 0.88);
+$glass-surface-dark-active: rgba(36, 36, 48, 0.95);
+$glass-btn-bg: rgba(255, 255, 255, 0.08);
+$glass-btn-hover: rgba(255, 255, 255, 0.16);
+$glass-btn-active: rgba(255, 255, 255, 0.28);
+$glass-btn-close-bg: rgba(255, 255, 255, 0.12);
+$glass-btn-close-hover: rgba(255, 255, 255, 0.22);
+$glass-btn-close-active: rgba(255, 255, 255, 0.35);
+
+// Borders & specular highlights
+$border-glass: rgba(255, 255, 255, 0.18);
+$border-glass-hover: rgba(255, 255, 255, 0.35);
+$border-glass-active: rgba(255, 255, 255, 0.6);
+$border-glass-specular: rgba(255, 255, 255, 0.1);
+$border-close-btn: rgba(255, 255, 255, 0.22);
+$border-close-btn-hover: rgba(255, 255, 255, 0.45);
+
+// Shadows & glow effects
+$shadow-surface: rgba(0, 0, 0, 0.25);
+$shadow-sidebar-tab: (-8px 0 24px $shadow-surface, inset 1px 0 0 $border-glass-specular);
+$shadow-sidebar-panel: (-8px 0 32px $shadow-surface, inset 1px 0 0 $border-glass-specular);
+$shadow-dock: (0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 $border-glass-specular);
+$shadow-hint: (0 -8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06));
+$glow-active: rgba(255, 255, 255, 0.15);
+$focus-ring: rgba(255, 255, 255, 0.6);
+
+
+
+// Scrollbars
+$scrollbar-width: 4px;
+$scrollbar-thumb-bg: rgba(255, 255, 255, 0.1);
+$scrollbar-thumb-light: rgba(255, 255, 255, 0.2);
+
+// Motion & easing
+$ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+
+// Z-index layer hierarchy (scaled in logical intervals)
+$z-canvas: 1;
+$z-overlay-content: 10;
+$z-overlay-tab: 20;
+$z-hud: 100;           // TopNavigation, InteractionHint
+$z-preview-modal: 500; // PreviewOverlay
+$z-loader: 1000;       // LoadingScreen (always topmost)

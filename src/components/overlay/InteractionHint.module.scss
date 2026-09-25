@@ -1,0 +1,36 @@
+@use '../../styles' as *;
+
+.interactionHint {
+  @include glass-surface($glass-surface-dark, 20px, 100%, $border-glass-specular, $shadow-hint);
+
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: $z-hud;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 16px 10px;
+  border-radius: 14px 14px 0 0;
+  border-bottom: none;
+  font-size: 0.6rem;
+  line-height: normal;
+  letter-spacing: 0.06em;
+  color: $text-secondary;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+
+  .hintGroup {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .hintAction {
+    color: $text-white;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+}

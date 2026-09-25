@@ -1,0 +1,87 @@
+@use '../../styles' as *;
+
+.topNavigation {
+  @include glass-surface(
+    $glass-btn-bg,
+    16px,
+    100%,
+    $border-glass,
+    (0 8px 24px rgba(0, 0, 0, 0.08), inset 0 -1px 0 $border-glass-specular)
+  );
+
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: $z-hud;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: auto;
+  max-width: 95vw;
+  padding: 10px 16px 8px;
+  border-radius: 0 0 14px 14px;
+  border-top: none;
+  pointer-events: auto;
+  user-select: none;
+
+  .navGroup {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .navLink {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0 0 4px;
+    margin: 0;
+    outline: none;
+    font: inherit;
+    font-size: 0.62rem;
+    color: $text-dim-dark;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    font-weight: normal;
+    line-height: normal;
+    transition: color 0.2s $ease-smooth, border-color 0.2s $ease-smooth;
+
+    &:hover:not(:disabled) {
+      color: $text-white;
+    }
+
+    &.active {
+      color: $text-white;
+      border-bottom-color: $text-white;
+      font-weight: bold;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &.navLogo {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 4px;
+      opacity: 0.55;
+      transition: opacity 0.25s $ease-smooth, border-color 0.2s $ease-smooth;
+
+      .logoImg {
+        height: 10px;
+        width: auto;
+        display: block;
+      }
+
+      &:hover:not(:disabled) {
+        opacity: 0.85;
+      }
+
+      &.active {
+        opacity: 1;
+        border-bottom-color: $text-white;
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+@use '../../styles' as *;
+
+.dock {
+  @include glass-surface($glass-btn-bg, 16px, 100%, $border-glass, $shadow-dock);
+
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  z-index: $z-overlay-content;
+  pointer-events: auto;
+  user-select: none;
+
+  .arrowBtn {
+    @include button-reset;
+    @include flex-center();
+    background: $glass-btn-bg;
+    border: 1px solid $border-glass;
+    color: $text-secondary;
+    font-size: 1.1rem;
+    font-weight: bold;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    transition: color 0.2s $ease-smooth, background-color 0.2s $ease-smooth, border-color 0.2s $ease-smooth, transform 0.2s $ease-smooth;
+
+    &:hover {
+      color: $text-white;
+      background: $glass-btn-hover;
+      border-color: $border-glass-hover;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background: $glass-btn-active;
+      border-color: $text-white;
+      color: $text-white;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $focus-ring;
+      outline-offset: 2px;
+    }
+  }
+
+  .closeBtn {
+    @include button-reset;
+    @include glass-surface($glass-btn-close-bg, 12px, 100%, $border-close-btn);
+
+    padding: 8px 20px;
+    border-radius: 8px;
+    color: $text-white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    transition: background-color 0.2s $ease-smooth, border-color 0.2s $ease-smooth, color 0.2s $ease-smooth, transform 0.2s $ease-smooth, box-shadow 0.2s $ease-smooth;
+
+    &:hover {
+      background: $glass-btn-close-hover;
+      border-color: $border-close-btn-hover;
+      color: $text-white;
+      box-shadow: 0 4px 16px $glow-active;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      background: $glass-btn-close-active;
+      border-color: $text-white;
+      color: $text-white;
+      transform: scale(0.98);
+      box-shadow: 0 0 12px $glow-active;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $focus-ring;
+      outline-offset: 2px;
+    }
+  }
+
+  .counter {
+    font-size: 0.68rem;
+    color: $text-counter;
+    margin-left: 4px;
+  }
+}

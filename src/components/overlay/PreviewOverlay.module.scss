@@ -1,0 +1,27 @@
+@use '../../styles' as *;
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: $z-preview-modal;
+  backdrop-filter: blur(15px) saturate(120%);
+  -webkit-backdrop-filter: blur(15px) saturate(120%);
+  background-color: rgba(10, 10, 12, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+
+  .canvasContainer {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+  }
+}
